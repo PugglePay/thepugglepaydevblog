@@ -21,9 +21,9 @@ body > nav {
       @include box-shadow(lighten($nav-bg, 2) 0 1px);
       background-color: lighten($nav-bg, 15);
       border: 1px solid $nav-border;
-      color: #888;
+      color: $nav-color;
       &:focus {
-        color: #444;
+        color: $nav-focus-color;
         border-color: #80b1df;
         @include box-shadow(#80b1df 0 0 4px, #80b1df 0 0 3px inset);
         background-color: #fff;
@@ -106,16 +106,16 @@ body > nav {
 @mixin mask-subscription-nav($feed: 'rss.png'){
   position: relative; top: 0px;
   text-indent: -999999em;
-  background-color: $nav-border-right;
+  background-color: $nav-rss-color;
   border: 0;
   padding: 0;
   &,&:after { @include mask-image($feed); }
   &:after {
     content: "";
     position: absolute; top: -1px; left: 0;
-    background-color: lighten($nav-color, 25);
+    background-color: lighten($nav-rss-color, 25);
   }
-  &:hover:after { background-color: lighten($nav-color, 20); }
+  &:hover:after { background-color: lighten($nav-rss-color, 20); }
 }
 .maskImage {
   body > nav {
@@ -134,4 +134,3 @@ body > nav {
   a[rel=subscribe-rss]{ @include mask-subscription-nav('rss.png'); }
   a[rel=subscribe-email]{ @include mask-subscription-nav('email.png'); }
 }
-
