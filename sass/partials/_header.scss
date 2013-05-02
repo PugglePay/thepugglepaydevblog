@@ -1,5 +1,8 @@
 body > header {
   background: $header-bg;
+  background-image: url("/images/stripe_background.png");
+  background-repeat: repeat-y;
+  height: $header-height;
   h1 {
     display: inline-block;
     margin: 0;
@@ -10,9 +13,19 @@ body > header {
   }
   h2 {
     margin: .2em 0 0;
-    @extend .sans;
-    font-size: 1em;
     color: $subtitle-color;
-    font-weight: normal;
+    padding-left: 1em;
+    font-size: 1.6em;
+    color: $header-color;
+    font-weight: bold;
+  }
+  #logo-pugglepay {
+    height: $header-height/4;
+  }
+  #welcoming-puggle {
+    float: right;
+    height: $header-height + $header-padding-top + $header-padding-bottom;
+    margin-top: -$header-padding-top;
+    margin-bottom: -$header-padding-bottom;
   }
 }
