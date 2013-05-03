@@ -11,6 +11,7 @@ categories:
   - messaging
   - daemons
   - scheduling
+author: jean-louis
 ---
 
 So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
@@ -158,5 +159,3 @@ result is a simpler architecture.
 We'd love to share more of what we know, but we'd love even more to
 acquire knowledge from others. So if you have some experience with
 TorqueBox, please get in touch!
-
-{% render_partial sign/jean-louis.md %}
