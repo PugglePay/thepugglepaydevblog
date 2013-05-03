@@ -4,6 +4,7 @@ title: "spork_and_nailgun.el"
 date: 2013-05-02 23:31
 comments: true
 categories: emacs lisp spork nailgun
+author: patrik
 ---
 
 We recently made the shift to TorqueBox here at PugglePay, and that
@@ -44,5 +45,3 @@ you have some errors.
 Now your ready to run your tests with [`C-c , v`](https://github.com/pezra/rspec-mode)
 
 This plugin works well for our workflow so [try it out](https://github.com/PugglePay/spork-and-nailgun.el) yourself.
-
-{% render_partial sign/patrik.md %}

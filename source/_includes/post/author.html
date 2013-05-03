@@ -1,8 +1,25 @@
-{% if post.author %}
-  {% assign author = post.author %}
-{% elsif page.author %}
-  {% assign author = page.author %}
-{% else %}
-  {% assign author = site.author %}
-{% endif %}
-{% if author %}<span class="byline author vcard">Posted by <span class="fn">{{ author }}</span></span>{% endif %}
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="{{ gravatar }}" alt="{{ author.name }}" />
+  </div>
+
+  <div class="author-about">
+    <h3>{{ author.name }}</h3>
+    <ul class="author-links">
+      {% if author.title %}
+      <li>{{ author.title }}</li>
+      {% endif %}
+
+      {% if author.email %}
+      <li><a href="mailto: {{ autor.email }}">{{ author.email }}</a></li>
+      {% endif %}
+
+      {% if author.twitter %}
+      <li>
+        <a href="https://twitter.com/{{ author.twitter }}" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @{{ author.twitter }}</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
