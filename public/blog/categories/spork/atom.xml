@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: spork | PugglePay]]></title>
+  <link href="http://devblog.pugglepay.com/blog/categories/spork/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
   <updated>2013-05-03T11:47:48+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
@@ -29,7 +29,7 @@ With the answer to all technical problems!</p>
 
 <h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">A emacs plugin</a></h3>
 
-<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to &#8216;sang-start-all and run it.</p>
+<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to 'sang-start-all and run it.</p>
 
 <ul>
 <li>It will kill any running instances of spork and nailgun you have running (by what port there listening to)</li>
@@ -46,9 +46,8 @@ With the answer to all technical problems!</p>
 
 <p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> your self.</p>
 
+<p>
 <hr />
-
-
 <div>
    <div style="float: left;">
       <img alt="avatar" src="https://secure.gravatar.com/avatar/d7e5aaa6813cde9cbd0005a2cf2b56f1?d=https://d3levm2kxut31z.cloudfront.net/assets/blank-mugshot-112e2e92d74b7344b8be3630bbccc5da.png" />
@@ -63,9 +62,7 @@ With the answer to all technical problems!</p>
 </p>
 </div>
 </div>
-
-
-
+</p>
 ]]></content>
   </entry>
   
