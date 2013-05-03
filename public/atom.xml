@@ -4,7 +4,7 @@
   <title><![CDATA[PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T14:49:29+02:00</updated>
+  <updated>2013-05-03T14:58:39+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev@pugglepay.com]]></name>
@@ -224,7 +224,7 @@ bit easier. With the answer to all technical problems!</p>
 
 <h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">An Emacs Plugin</a></h3>
 
-<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to &#8216;sang-start-all and run it.</p>
+<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex <code>C-c C-l</code>) to &#8216;sang-start-all and run it.</p>
 
 <ul>
 <li>It will kill any running instances of spork and nailgun you have
@@ -240,9 +240,9 @@ you have some errors.</p>
 
 <p><a href="http://imgur.com/RozzIIv"><img src="http://i.imgur.com/RozzIIv.png" title="Hosted by imgur.com"/></a></p>
 
-<p>Now your ready to run your tests <a href="https://github.com/pezra/rspec-mode">(C-c , v)</a></p>
+<p>Now your ready to run your tests with <a href="https://github.com/pezra/rspec-mode"><code>C-c , v</code></a></p>
 
-<p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> your self.</p>
+<p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> yourself.</p>
 
 <hr />
 
