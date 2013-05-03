@@ -2,5 +2,7 @@
 
 git pull origin master
 rake generate
+git add .
+git commit -m "regenerated website"
 git push origin master
 git push heroku master
