@@ -4,10 +4,10 @@
   <title><![CDATA[Category: messaging | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/messaging/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T20:17:49+02:00</updated>
+  <updated>2013-05-03T21:41:59+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
-    <name><![CDATA[dev@pugglepay.com]]></name>
+    <name><![CDATA[The Puggles]]></name>
     <email><![CDATA[dev@pugglepay.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -177,7 +177,7 @@ TorqueBox, please get in touch!</p>
 <div style="float: left; margin-left: 20px;">
 <p style="font-wight: bold;">Author: Jean-Louis Giordano
    <br />
-   email: <a href="mailto: patrik@pugglepay.com">jean-louis@pugglepay.com</a>
+   email: <a href="mailto: jean-louis@pugglepay.com">jean-louis@pugglepay.com</a>
    <br />
    <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

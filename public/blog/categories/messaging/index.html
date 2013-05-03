@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <title>Category: messaging - PugglePay</title>
-  <meta name="author" content="dev@pugglepay.com">
+  <meta name="author" content="The Puggles">
 
   
   <meta name="description" content="Category: messaging">
@@ -111,6 +111,35 @@
   </ul>
 </section>
 
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/PugglePay">@PugglePay</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'PugglePay',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
 
 
 
@@ -122,7 +151,7 @@
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - dev@pugglepay.com -
+  Copyright &copy; 2013 - The Puggles -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
