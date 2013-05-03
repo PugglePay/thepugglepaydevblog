@@ -1,24 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T12:40:06+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
-  <author>
-    <name><![CDATA[dev@pugglepay.com]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Torquebox or: How I Learned to Stop Worrying and Love the JVM - PugglePay</title>
+  <meta name="author" content="dev@pugglepay.com">
 
   
-  <entry>
-    <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
-    <updated>2013-05-03T10:42:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
-    <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spend
+  <meta name="description" content="So here is the thing. As a DevOp, SysAdmin is a PITA. Time spend
+tweaking the servers to add such or such service is time not spent
+actually &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PugglePay" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <img id="welcoming-puggle" src="/images/welcoming_puggle.png"></img>
+  <h1 id="header-title"><a href="/"><img id="logo-pugglepay" src="/images/logo_pugglepay.png"></img></a></h1>
+  
+    <h2 id="header-subtitle">Dev Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:devblog.pugglepay.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Torquebox or: How I Learned to Stop Worrying and Love the JVM</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T10:42:00+02:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spend
 tweaking the servers to add such or such service is time not spent
 actually producing something.</p>
 
@@ -192,66 +268,136 @@ TorqueBox, please get in touch!</p>
 
 
 
-]]></content>
-  </entry>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
   
-  <entry>
-    <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
-    <content type="html"><![CDATA[<p>We recently made the shift here at pugglepay to torquebox and with that JRuby. So with that we started using spork and nailgun to run our tests.</p>
 
-<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your application for you to have faster startup for your tests. And nailgun (wich comes with jruby) is a lower level tool to have jvm instances ready to go.</p>
+<span class="byline author vcard">Posted by <span class="fn">dev@pugglepay.com</span></span>
 
-<p>Both of them stayes alive between test runs and can get “corrupted”. You also need to restart spork every time you change something that is outside what it reloads between each test (blueprints for example in our case).</p>
-
-<p>So we (eq me and Jean-Louis) decided to spend a hour to make this a bit easier.
-With the answer to all technical problems!</p>
-
-<!-- more -->
+      
 
 
-<h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">A emacs plugin</a></h3>
-
-<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to &#8216;sang-start-all and run it.</p>
-
-<ul>
-<li>It will kill any running instances of spork and nailgun you have running (by what port there listening to)</li>
-<li>Jump to the root of the project your currently editing in and activate your the right rvm env</li>
-<li>Start upp Spork and nailgun in separate buffers.</li>
-</ul>
 
 
-<p>The spork buffer will popup and it can have some useful information if you have some errors.</p>
-
-<p><a href="http://imgur.com/RozzIIv"><img src="http://i.imgur.com/RozzIIv.png" title="Hosted by imgur.com"/></a></p>
-
-<p>Now your ready to run your tests <a href="https://github.com/pezra/rspec-mode">(C-c , v)</a></p>
-
-<p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> your self.</p>
-
-<hr />
 
 
-<div>
-   <div style="float: left;">
-      <img alt="avatar" src="https://secure.gravatar.com/avatar/d7e5aaa6813cde9cbd0005a2cf2b56f1?d=https://d3levm2kxut31z.cloudfront.net/assets/blank-mugshot-112e2e92d74b7344b8be3630bbccc5da.png" />
-   </div>
-<div style="float: left; margin-left: 20px;">
-<p style="font-wight: bold;">Author: Patrik Kårlin
-   <br />
-   email: <a href="mailto: patrik@pugglepay.com">patrik@pugglepay.com</a>
-   <br />
-   <a href="https://twitter.com/patrik_karlin" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @patrik_karlin</a>
-   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+  
+
+
+<time datetime="2013-05-03T10:42:00+02:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jruby/'>JRuby</a>, <a class='category' href='/blog/categories/jvm/'>JVM</a>, <a class='category' href='/blog/categories/sysadmin/'>SysAdmin</a>, <a class='category' href='/blog/categories/daemons/'>daemons</a>, <a class='category' href='/blog/categories/messaging/'>messaging</a>, <a class='category' href='/blog/categories/scheduling/'>scheduling</a>, <a class='category' href='/blog/categories/torquebox/'>torquebox</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/" data-via="" data-counturl="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/02/spork-and-nailgun-dot-el/" title="Previous Post: spork_and_nailgun.el">&laquo; spork_and_nailgun.el</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">Torquebox or: How I Learned to Stop Worrying and Love the JVM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/02/spork-and-nailgun-dot-el/">spork_and_nailgun.el</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - dev@pugglepay.com -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
-</div>
-</div>
 
-
-
-]]></content>
-  </entry>
+</footer>
   
-</feed>
+
+<script type="text/javascript">
+      var disqus_shortname = 'thepugglepaydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/';
+        var disqus_url = 'http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

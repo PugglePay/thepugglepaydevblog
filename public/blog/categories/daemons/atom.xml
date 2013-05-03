@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: daemons | PugglePay]]></title>
+  <link href="http://devblog.pugglepay.com/blog/categories/daemons/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
   <updated>2013-05-03T12:40:06+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
@@ -66,13 +66,13 @@ clustered.</li>
 </ul>
 
 
-<p>So as any good developer, we googled &#8220;rails queues cron clustering&#8221;
+<p>So as any good developer, we googled "rails queues cron clustering"
 and found <a href="http://torquebox.org/">TorqueBox</a>.</p>
 
 <h2>TorqueBox</h2>
 
 <p>The idea of TorqueBox is to add a layer of abstraction between the
-server and your application. It&#8217;s like you are building a city, and
+server and your application. It's like you are building a city, and
 TorqueBox offers to provide the sewer system, running water,
 electricity and the Internet so that you can focus only on the city
 planning.</p>
@@ -90,37 +90,35 @@ knowledge. It would be difficult for us, but it could become easy.</p>
 <h2>Investigation</h2>
 
 <p>So we started our investigation. The first step was to migrate our app
-to JRuby. First downside: we got really slow tests. So that&#8217;s the
+to JRuby. First downside: we got really slow tests. So that's the
 first thing we had to improve.</p>
 
 <p>The solution was to use <a href="https://github.com/sporkrb/spork">Spork</a> and
-NailGun. What we got are fast enough tests. It&#8217;s slower than with MRI
+NailGun. What we got are fast enough tests. It's slower than with MRI
 (10% slower on average), but good enough.</p>
 
 <p>So running on JRuby: check! Next step was to get the app running
 locally on TorqueBox. Roughly, that meant:</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>gem install torquebox
-</span><span class='line'>torquebox run
-</span></code></pre></td></tr></table></div></figure>
+<p><code>sh
+gem install torquebox
+torquebox run
+</code></p>
 
-
-<p>Boom. Trivial. Now let&#8217;s deploy to Amazon. Well, there&#8217;s a
+<p>Boom. Trivial. Now let's deploy to Amazon. Well, there's a
 <a href="https://github.com/torquebox/chef-cookbooks">chef recipe</a>. It
 requires some extra work to get clustering going because Amazon does
 not support multicasting (for automatic discovery of new nodes). Well,
-clustering is for later, and for sure we&#8217;re going to solve that
+clustering is for later, and for sure we're going to solve that
 problem. So getting TorqueBox to run on amazon: check!</p>
 
-<p>Now let&#8217;s deploy. Cool, there&#8217;s a
+<p>Now let's deploy. Cool, there's a
 <a href="https://rubygems.org/gems/torquebox-capistrano-support">Capistrano recipe</a>!
 We already used capistrano, so that was easy. Boom! Deploying to
 TorqueBox: check!</p>
 
 <p>Sweet! Now lets deploy again! Yay, it works! And again! Yay! And
-again! Oups&#8230; Nothing works anymore. Well, we knew exactly nothing
+again! Oups... Nothing works anymore. Well, we knew exactly nothing
 about JRuby, the JVM or TorqueBox, so it took us a week to find out
 that after a redeploy the connections to the database were only closed
 after Garbage Collection, but garbage collection came too late in our
@@ -130,7 +128,7 @@ case.</p>
 all connections after redeploy.</p>
 
 <p>We also realized that we do not get zero-downtime deploy when
-deploying to TorqueBox. That&#8217;s sad, because we are going to need it in
+deploying to TorqueBox. That's sad, because we are going to need it in
 the future. After googling a little more, we found out that this is a
 feature coming with the next release. Fair enough.</p>
 
@@ -143,9 +141,9 @@ the future, and decided that the pros were bigger than the cons.</p>
 <h2>Running in production</h2>
 
 <p>It went pretty smoothly at first, but after a couple of deploy we got
-a &#8220;PermGen out of memory&#8221; error. WTF is that?</p>
+a "PermGen out of memory" error. WTF is that?</p>
 
-<p>Well, that&#8217;s a story for another post. Long story short, closing the
+<p>Well, that's a story for another post. Long story short, closing the
 DB connections was not enough because some references were being kept
 that prevented the JRuby runtimes from being garbage collected after
 each deploy. Also <code>jvisualvm</code> is an awesome tool that lets you inspect
@@ -168,13 +166,11 @@ infrastructure, and we did not want to rely on too many components.</p>
 <p>Pros > Cons, lots of new things to learn, but the end
 result is a simpler architecture.</p>
 
-<p>We&#8217;d love to share more of what we know, but we&#8217;d love even more to
+<p>We'd love to share more of what we know, but we'd love even more to
 acquire knowledge from others. So if you have some experience with
 TorqueBox, please get in touch!</p>
 
-<hr />
-
-
+<p><hr />
 <div>
    <div style="float: left;">
       <img alt="avatar" src="http://www.gravatar.com/avatar/4eed77cef649100303e38c7c05689eb8.png" />
@@ -189,68 +185,7 @@ TorqueBox, please get in touch!</p>
 </p>
 </div>
 </div>
-
-
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
-    <content type="html"><![CDATA[<p>We recently made the shift here at pugglepay to torquebox and with that JRuby. So with that we started using spork and nailgun to run our tests.</p>
-
-<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your application for you to have faster startup for your tests. And nailgun (wich comes with jruby) is a lower level tool to have jvm instances ready to go.</p>
-
-<p>Both of them stayes alive between test runs and can get “corrupted”. You also need to restart spork every time you change something that is outside what it reloads between each test (blueprints for example in our case).</p>
-
-<p>So we (eq me and Jean-Louis) decided to spend a hour to make this a bit easier.
-With the answer to all technical problems!</p>
-
-<!-- more -->
-
-
-<h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">A emacs plugin</a></h3>
-
-<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to &#8216;sang-start-all and run it.</p>
-
-<ul>
-<li>It will kill any running instances of spork and nailgun you have running (by what port there listening to)</li>
-<li>Jump to the root of the project your currently editing in and activate your the right rvm env</li>
-<li>Start upp Spork and nailgun in separate buffers.</li>
-</ul>
-
-
-<p>The spork buffer will popup and it can have some useful information if you have some errors.</p>
-
-<p><a href="http://imgur.com/RozzIIv"><img src="http://i.imgur.com/RozzIIv.png" title="Hosted by imgur.com"/></a></p>
-
-<p>Now your ready to run your tests <a href="https://github.com/pezra/rspec-mode">(C-c , v)</a></p>
-
-<p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> your self.</p>
-
-<hr />
-
-
-<div>
-   <div style="float: left;">
-      <img alt="avatar" src="https://secure.gravatar.com/avatar/d7e5aaa6813cde9cbd0005a2cf2b56f1?d=https://d3levm2kxut31z.cloudfront.net/assets/blank-mugshot-112e2e92d74b7344b8be3630bbccc5da.png" />
-   </div>
-<div style="float: left; margin-left: 20px;">
-<p style="font-wight: bold;">Author: Patrik Kårlin
-   <br />
-   email: <a href="mailto: patrik@pugglepay.com">patrik@pugglepay.com</a>
-   <br />
-   <a href="https://twitter.com/patrik_karlin" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @patrik_karlin</a>
-   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </p>
-</div>
-</div>
-
-
-
 ]]></content>
   </entry>
   
