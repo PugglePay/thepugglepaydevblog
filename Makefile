@@ -3,7 +3,6 @@ deploy:
 	git pull origin master
 	git checkout deploy
 	git pull origin deploy
-	git rm -r ./public/*
 	git merge master
 	rake generate
 	git add -f ./public
