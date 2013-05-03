@@ -13,9 +13,9 @@ categories:
   - scheduling
 ---
 
-So here is the thing. As a DevOp, SysAdmin is a PITA. Time spend
+So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent
-actually producing something.
+actually producing value.
 
 At PugglePay, we try to be agile and always look at the trade-offs
 that are involved in every decision we make. So as we started
@@ -23,8 +23,9 @@ developing our product, we decided to go with the easy and fast track,
 and that meant Amazon, Rails and MySQL.
 
 Unfortunately, easy does not necessary mean simple, so we kept using
-the tool to the point were easy became complex. So it was time to do
-something difficult to turn our product into something simple again.
+the same tools to the point were easy became complex. So it was time
+to do something difficult which was to use more tools and turn our
+product into something simple again.
 
 <!-- more -->
 
@@ -39,7 +40,7 @@ being slowly boiled to death).
 ## Our problem:
 
 - We needed queues. We kept on postponing using them because we wanted
-  to Keep It Simple®, but simple started to meant queues.
+  to Keep It Simple™, but simple started to meant queues.
 
 - We needed daemons. Stuff that run non stop, and that gets updated
   after each deploy.
@@ -50,7 +51,7 @@ being slowly boiled to death).
 
 If we look at the above, the easy solution would have been to add
 a message processing lib like sidekiq, a short capistrano script to
-redploy our services and keep on using cron for recurring tasks. But
+redeploy our services and keep on using cron for recurring tasks. But
 here comes the trick:
 
 - We are going to need clustering. And we want all of the above to be
