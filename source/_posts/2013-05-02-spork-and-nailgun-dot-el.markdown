@@ -28,7 +28,7 @@ bit easier. With the answer to all technical problems!
 
 ###[An Emacs Plugin](https://github.com/PugglePay/spork-and-nailgun.el)
 
-So install it (with [el-get](https://github.com/dimitri/el-get) perhaps) and bind a key (ex C-c C-l) to 'sang-start-all and run it.
+So install it (with [el-get](https://github.com/dimitri/el-get) perhaps) and bind a key (ex `C-c C-l`) to 'sang-start-all and run it.
 
 * It will kill any running instances of spork and nailgun you have
   running (by looking up the port they are listening to),
@@ -41,8 +41,8 @@ you have some errors.
 
 <a href="http://imgur.com/RozzIIv"><img src="http://i.imgur.com/RozzIIv.png" title="Hosted by imgur.com"/></a>
 
-Now your ready to run your tests [(C-c , v)](https://github.com/pezra/rspec-mode)
+Now your ready to run your tests with [`C-c , v`](https://github.com/pezra/rspec-mode)
 
-This plugin works well for our workflow so [try it out](https://github.com/PugglePay/spork-and-nailgun.el) your self.
+This plugin works well for our workflow so [try it out](https://github.com/PugglePay/spork-and-nailgun.el) yourself.
 
 {% render_partial sign/patrik.md %}
