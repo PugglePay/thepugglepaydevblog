@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Torquebox or: How I Learned to Stop Worrying and Love the JVM - PugglePay</title>
+  <meta name="author" content="dev@pugglepay.com">
+
+  
+  <meta name="description" content="So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
+tweaking the servers to add such or such service is time not spent
+actually &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PugglePay" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <img id="welcoming-puggle" src="/images/welcoming_puggle.png"></img>
+  <h1 id="header-title"><a href="/"><img id="logo-pugglepay" src="/images/logo_pugglepay.png"></img></a></h1>
+  
+    <h2 id="header-subtitle">Dev Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:devblog.pugglepay.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Torquebox or: How I Learned to Stop Worrying and Love the JVM</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T10:42:00+02:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
+tweaking the servers to add such or such service is time not spent
+actually producing value.</p>
+
+<p>At PugglePay, we try to be agile and always look at the trade-offs
+that are involved in every decision we make. So as we started
+developing our product, we decided to go with the easy and fast track,
+and that meant Amazon, Rails and MySQL.</p>
+
+<p>Unfortunately, easy does not necessary mean simple, so we kept using
+the same tools to the point were easy became complex. So it was time
+to do something difficult which was to use more tools and turn our
+product into something simple again.</p>
+
+<!-- more -->
+
+
+<p>As a side note, being difficult or easy is purely suggestive, but
+being simple or complex is objective. Google Rich Hickey if you
+do not agree.</p>
+
+<p>Anyway, the difficult thing for us was to move out of our comfort
+zone because our comfort zone was a dangerous place (remember the frog
+being slowly boiled to death).</p>
+
+<h2>Our problem:</h2>
+
+<ul>
+<li><p>We needed queues. We kept on postponing using them because we wanted
+to Keep It Simple™, but simple started to meant queues.</p></li>
+<li><p>We needed daemons. Stuff that run non stop, and that gets updated
+after each deploy.</p></li>
+<li><p>We needed scheduled jobs. We used cron for that, but that meant that
+the application and the server were tightly coupled. Not simple!
+(but easy)</p></li>
+</ul>
+
+
+<p>If we look at the above, the easy solution would have been to add
+a message processing lib like sidekiq, a short capistrano script to
+redeploy our services and keep on using cron for recurring tasks. But
+here comes the trick:</p>
+
+<ul>
+<li>We are going to need clustering. And we want all of the above to be
+clustered.</li>
+</ul>
+
+
+<p>So as any good developer, we googled &#8220;rails queues cron clustering&#8221;
+and found <a href="http://torquebox.org/">TorqueBox</a>.</p>
+
+<h2>TorqueBox</h2>
+
+<p>The idea of TorqueBox is to add a layer of abstraction between the
+server and your application. It&#8217;s like you are building a city, and
+TorqueBox offers to provide the sewer system, running water,
+electricity and the Internet so that you can focus only on the city
+planning.</p>
+
+<p>In practice, that meant webserver, messaging, recurring jobs, and
+daemons out of the box, and the only SysAdmin we have to do is
+to get TorqueBox running.</p>
+
+<p>Wow. That is exactly what we need. Only downside: it runs on JRuby.
+Which means JVM. And we had zero knowledge.</p>
+
+<p>But it was just too good to just dismiss it because of our own lack of
+knowledge. It would be difficult for us, but it could become easy.</p>
+
+<h2>Investigation</h2>
+
+<p>So we started our investigation. The first step was to migrate our app
+to JRuby. First downside: we got really slow tests. So that&#8217;s the
+first thing we had to improve.</p>
+
+<p>The solution was to use <a href="https://github.com/sporkrb/spork">Spork</a> and
+NailGun. What we got are fast enough tests. It&#8217;s slower than with MRI
+(10% slower on average), but good enough.</p>
+
+<p>So running on JRuby: check! Next step was to get the app running
+locally on TorqueBox. Roughly, that meant:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>gem install torquebox
+</span><span class='line'>torquebox run
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Boom. Trivial. Now let&#8217;s deploy to Amazon. Well, there&#8217;s a
+<a href="https://github.com/torquebox/chef-cookbooks">chef recipe</a>. It
+requires some extra work to get clustering going because Amazon does
+not support multicasting (for automatic discovery of new nodes). Well,
+clustering is for later, and for sure we&#8217;re going to solve that
+problem. So getting TorqueBox to run on amazon: check!</p>
+
+<p>Now let&#8217;s deploy. Cool, there&#8217;s a
+<a href="https://rubygems.org/gems/torquebox-capistrano-support">Capistrano recipe</a>!
+We already used capistrano, so that was easy. Boom! Deploying to
+TorqueBox: check!</p>
+
+<p>Sweet! Now lets deploy again! Yay, it works! And again! Yay! And
+again! Oups&#8230; Nothing works anymore. Well, we knew exactly nothing
+about JRuby, the JVM or TorqueBox, so it took us a week to find out
+that after a redeploy the connections to the database were only closed
+after Garbage Collection, but garbage collection came too late in our
+case.</p>
+
+<p>So the solution was to add an <code>at_exit</code> hook that took care of closing
+all connections after redeploy.</p>
+
+<p>We also realized that we do not get zero-downtime deploy when
+deploying to TorqueBox. That&#8217;s sad, because we are going to need it in
+the future. After googling a little more, we found out that this is a
+feature coming with the next release. Fair enough.</p>
+
+<p>So after a couple of weeks of research and testing, we were confident
+enough that TorqueBox would make our system much easier to maintain in
+the future, and decided that the pros were bigger than the cons.</p>
+
+<p>So we took a leap of faith and deployed the whole thing in production.</p>
+
+<h2>Running in production</h2>
+
+<p>It went pretty smoothly at first, but after a couple of deploy we got
+a &#8220;PermGen out of memory&#8221; error. WTF is that?</p>
+
+<p>Well, that&#8217;s a story for another post. Long story short, closing the
+DB connections was not enough because some references were being kept
+that prevented the JRuby runtimes from being garbage collected after
+each deploy. Also <code>jvisualvm</code> is an awesome tool that lets you inspect
+a running JVM in realtime.</p>
+
+<p>We have been running TorqueBox in production for a couple of weeks now,
+and we are getting more familiar with it everyday. Our architecture is
+much simpler, and the difficult bump we had to overcome is behind us.
+So in the end, we believe that we have made the right choice.</p>
+
+<p>But I think it is important to know that this was not a totally
+painless migration. We had to learn about the JVM, how its garbage
+collection works, which tool to use and which flags to set, while
+making sure our development speed was not too much impacted by the
+change. For us, it was worth it because we needed a better
+infrastructure, and we did not want to rely on too many components.</p>
+
+<h2>Conclusion</h2>
+
+<p>Pros > Cons, lots of new things to learn, but the end
+result is a simpler architecture.</p>
+
+<p>We&#8217;d love to share more of what we know, but we&#8217;d love even more to
+acquire knowledge from others. So if you have some experience with
+TorqueBox, please get in touch!</p>
+
+<hr />
+
+
+<div>
+   <div style="float: left;">
+      <img alt="avatar" src="http://www.gravatar.com/avatar/4eed77cef649100303e38c7c05689eb8.png" />
+   </div>
+<div style="float: left; margin-left: 20px;">
+<p style="font-wight: bold;">Author: Jean-Louis Giordano
+   <br />
+   email: <a href="mailto: patrik@pugglepay.com">jean-louis@pugglepay.com</a>
+   <br />
+   <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</p>
+</div>
+</div>
+
+
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">dev@pugglepay.com</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-03T10:42:00+02:00" pubdate data-updated="true">May 3<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/jruby/'>JRuby</a>, <a class='category' href='/blog/categories/jvm/'>JVM</a>, <a class='category' href='/blog/categories/sysadmin/'>SysAdmin</a>, <a class='category' href='/blog/categories/daemons/'>daemons</a>, <a class='category' href='/blog/categories/messaging/'>messaging</a>, <a class='category' href='/blog/categories/scheduling/'>scheduling</a>, <a class='category' href='/blog/categories/torquebox/'>torquebox</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/" data-via="" data-counturl="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/02/spork-and-nailgun-dot-el/" title="Previous Post: spork_and_nailgun.el">&laquo; spork_and_nailgun.el</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">Torquebox or: How I Learned to Stop Worrying and Love the JVM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/02/spork-and-nailgun-dot-el/">spork_and_nailgun.el</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - dev@pugglepay.com -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thepugglepaydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/';
+        var disqus_url = 'http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
