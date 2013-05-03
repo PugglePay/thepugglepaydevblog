@@ -14,6 +14,7 @@ Both of them stayes alive between test runs and can get “corrupted”. You als
 
 So we (eq me and Jean-Louis) decided to spend a hour to make this a bit easier.
 With the answer to all technical problems!
+<!-- more -->
 ###[A emacs plugin](https://github.com/PugglePay/spork-and-nailgun.el)
 
 So install it (with [el-get](https://github.com/dimitri/el-get) perhaps) and bind a key (ex C-c C-l) to 'sang-start-all and run it.
