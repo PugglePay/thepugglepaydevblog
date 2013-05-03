@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lisp | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/lisp/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T11:58:43+02:00</updated>
+  <updated>2013-05-03T12:16:24+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev@pugglepay.com]]></name>
@@ -26,6 +26,9 @@
 
 <p>So we (eq me and Jean-Louis) decided to spend a hour to make this a bit easier.
 With the answer to all technical problems!</p>
+
+<!-- more -->
+
 
 <h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">A emacs plugin</a></h3>
 
