@@ -151,14 +151,23 @@ product into something simple again.</p>
   </header>
 
 
-  <div class="entry-content"><p>We recently made the shift here at pugglepay to torquebox and with that JRuby. So with that we started using spork and nailgun to run our tests.</p>
+  <div class="entry-content"><p>We recently made the shift to TorqueBox here at PugglePay, and that
+meant moving from MRI to JRuby. I order to cope with the slow start-up
+induced by the JVM we started using spork and nailgun for running our
+tests.</p>
 
-<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your application for you to have faster startup for your tests. And nailgun (wich comes with jruby) is a lower level tool to have jvm instances ready to go.</p>
+<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your
+application for you to have faster startup for your tests. And nailgun
+(wich comes with JRuby) is a lower level tool to have jvm instances
+ready to go.</p>
 
-<p>Both of them stayes alive between test runs and can get “corrupted”. You also need to restart spork every time you change something that is outside what it reloads between each test (blueprints for example in our case).</p>
+<p>Both of them stay alive between test runs and can get &#8220;corrupted&#8221;. You
+also need to restart spork every time you change something that is
+outside what it reloads between each test (blueprints for example in
+our case).</p>
 
-<p>So we (eq me and Jean-Louis) decided to spend a hour to make this a bit easier.
-With the answer to all technical problems!</p>
+<p>So we (eq me and Jean-Louis) decided to spend an hour to make this a
+bit easier. With the answer to all technical problems!</p>
 
 </div>
   

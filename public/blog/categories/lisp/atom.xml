@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lisp | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/lisp/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T14:22:37+02:00</updated>
+  <updated>2013-05-03T14:46:31+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev@pugglepay.com]]></name>
@@ -18,14 +18,23 @@
     <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
     <updated>2013-05-02T23:31:00+02:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
-    <content type="html"><![CDATA[<p>We recently made the shift here at pugglepay to torquebox and with that JRuby. So with that we started using spork and nailgun to run our tests.</p>
+    <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at PugglePay, and that
+meant moving from MRI to JRuby. I order to cope with the slow start-up
+induced by the JVM we started using spork and nailgun for running our
+tests.</p>
 
-<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your application for you to have faster startup for your tests. And nailgun (wich comes with jruby) is a lower level tool to have jvm instances ready to go.</p>
+<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your
+application for you to have faster startup for your tests. And nailgun
+(wich comes with JRuby) is a lower level tool to have jvm instances
+ready to go.</p>
 
-<p>Both of them stayes alive between test runs and can get “corrupted”. You also need to restart spork every time you change something that is outside what it reloads between each test (blueprints for example in our case).</p>
+<p>Both of them stay alive between test runs and can get "corrupted". You
+also need to restart spork every time you change something that is
+outside what it reloads between each test (blueprints for example in
+our case).</p>
 
-<p>So we (eq me and Jean-Louis) decided to spend a hour to make this a bit easier.
-With the answer to all technical problems!</p>
+<p>So we (eq me and Jean-Louis) decided to spend an hour to make this a
+bit easier. With the answer to all technical problems!</p>
 
 <!-- more -->
 
@@ -35,13 +44,16 @@ With the answer to all technical problems!</p>
 <p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to 'sang-start-all and run it.</p>
 
 <ul>
-<li>It will kill any running instances of spork and nailgun you have running (by what port there listening to)</li>
-<li>Jump to the root of the project your currently editing in and activate your the right rvm env</li>
+<li>It will kill any running instances of spork and nailgun you have
+running (by looking up the port they are listening to),</li>
+<li>Jump to the root of the project your currently editing in and
+activate the right rvm env,</li>
 <li>Start upp Spork and nailgun in separate buffers.</li>
 </ul>
 
 
-<p>The spork buffer will popup and it can have some useful information if you have some errors.</p>
+<p>The spork buffer will popup and it can have some useful information if
+you have some errors.</p>
 
 <p><a href="http://imgur.com/RozzIIv"><img src="http://i.imgur.com/RozzIIv.png" title="Hosted by imgur.com"/></a></p>
 
