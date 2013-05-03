@@ -23,36 +23,32 @@ developing our product, we decided to go with the easy and fast track,
 and that meant Amazon, Rails and MySQL.
 
 Unfortunately, easy does not necessary mean simple, so we kept using
-the same tools to the point were easy became complex. So it was time
-to do something difficult which was to use more tools and turn our
-product into something simple again.
+the same tools to the point where easy became complex. It was time
+for us to do something difficult which was to use more tools and turn our
+architecture simple again.
 
 <!-- more -->
 
-As a side note, being difficult or easy is purely suggestive, but
-being simple or complex is objective. Google Rich Hickey if you
-do not agree.
-
-Anyway, the difficult thing for us was to move out of our comfort
-zone because our comfort zone was a dangerous place (remember the frog
-being slowly boiled to death).
+The difficult thing for us was to move out of our comfort zone because
+our comfort zone was a dangerous place (remember the frog being slowly
+boiled to death).
 
 ## Our problem:
 
 - We needed queues. We kept on postponing using them because we wanted
-  to Keep It Simple™, but simple started to meant queues.
+  to Keep It Simple™, but simple meant using queues.
 
-- We needed daemons. Stuff that run non stop, and that gets updated
+- We needed daemons. Stuff that run non stop, and that get updated
   after each deploy.
 
-- We needed scheduled jobs. We used cron for that, but that meant that
+- We needed scheduled jobs. We used cron for that, but that meant
   the application and the server were tightly coupled. Not simple!
   (but easy)
 
-If we look at the above, the easy solution would have been to add
-a message processing lib like sidekiq, a short capistrano script to
-redeploy our services and keep on using cron for recurring tasks. But
-here comes the trick:
+If we look at all of the above, the easy solution would have been to
+add a message processing lib like sidekiq, a short capistrano script
+to redeploy our services and keep on using cron for recurring tasks.
+But here comes the trick:
 
 - We are going to need clustering. And we want all of the above to be
   clustered.
@@ -65,18 +61,19 @@ and found [TorqueBox](http://torquebox.org/).
 The idea of TorqueBox is to add a layer of abstraction between the
 server and your application. It's like you are building a city, and
 TorqueBox offers to provide the sewer system, running water,
-electricity and the Internet so that you can focus only on the city
+electricity and the Internet so that you can focus on the city
 planning.
 
 In practice, that meant webserver, messaging, recurring jobs, and
-daemons out of the box, and the only SysAdmin we have to do is
-to get TorqueBox running.
+daemons out of the box, and the only SysAdmin we have to take care of
+is to get TorqueBox running.
 
-Wow. That is exactly what we need. Only downside: it runs on JRuby.
-Which means JVM. And we had zero knowledge.
+Wow. That looked exactly like what we needed. Only downside: it runs on
+JRuby. Which means JVM. And we had zero knowledge.
 
-But it was just too good to just dismiss it because of our own lack of
-knowledge. It would be difficult for us, but it could become easy.
+But the concept was just too good to be so easily dismissed because of our
+own lack of knowledge. It would be difficult for us, but it could
+become easy on the long run.
 
 ## Investigation
 
@@ -94,6 +91,7 @@ locally on TorqueBox. Roughly, that meant:
 ``` sh
 gem install torquebox
 torquebox run
+torquebox deploy
 ```
 
 Boom. Trivial. Now let's deploy to Amazon. Well, there's a
@@ -101,7 +99,7 @@ Boom. Trivial. Now let's deploy to Amazon. Well, there's a
 requires some extra work to get clustering going because Amazon does
 not support multicasting (for automatic discovery of new nodes). Well,
 clustering is for later, and for sure we're going to solve that
-problem. So getting TorqueBox to run on amazon: check!
+problem. So getting TorqueBox to run on Amazon: check!
 
 Now let's deploy. Cool, there's a
 [Capistrano recipe](https://rubygems.org/gems/torquebox-capistrano-support)!
