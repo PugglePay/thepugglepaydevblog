@@ -4,7 +4,7 @@
   <title><![CDATA[Category: emacs | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/emacs/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T14:46:31+02:00</updated>
+  <updated>2013-05-03T14:49:29+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev@pugglepay.com]]></name>
@@ -39,7 +39,7 @@ bit easier. With the answer to all technical problems!</p>
 <!-- more -->
 
 
-<h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">A emacs plugin</a></h3>
+<h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">An Emacs Plugin</a></h3>
 
 <p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex C-c C-l) to 'sang-start-all and run it.</p>
 
