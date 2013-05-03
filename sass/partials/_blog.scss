@@ -1,4 +1,6 @@
 article {
+  font-family: $article-font;
+  line-height: 160%;
   padding-top: 1em;
   a { @extend .force-wrap; }
   header {
