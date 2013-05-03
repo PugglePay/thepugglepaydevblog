@@ -24,8 +24,7 @@ body > header {
   }
   #welcoming-puggle {
     float: right;
-    height: $header-height + $header-padding-top + $header-padding-bottom;
-    margin-top: -$header-padding-top;
+    height: $header-height + $header-padding-bottom;
     margin-bottom: -$header-padding-bottom;
   }
 }
