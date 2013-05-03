@@ -4,10 +4,10 @@
   <title><![CDATA[Category: emacs | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/emacs/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-03T21:51:52+02:00</updated>
+  <updated>2013-05-04T00:38:45+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
-    <name><![CDATA[The Puggles]]></name>
+    <name><![CDATA[dev]]></name>
     <email><![CDATA[dev@pugglepay.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -60,23 +60,6 @@ you have some errors.</p>
 <p>Now your ready to run your tests with <a href="https://github.com/pezra/rspec-mode"><code>C-c , v</code></a></p>
 
 <p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> yourself.</p>
-
-<p><hr />
-<div>
-   <div style="float: left;">
-      <img alt="avatar" src="https://secure.gravatar.com/avatar/d7e5aaa6813cde9cbd0005a2cf2b56f1?d=https://d3levm2kxut31z.cloudfront.net/assets/blank-mugshot-112e2e92d74b7344b8be3630bbccc5da.png" />
-   </div>
-<div style="float: left; margin-left: 20px;">
-<p style="font-wight: bold;">Author: Patrik Kårlin
-   <br />
-   email: <a href="mailto: patrik@pugglepay.com">patrik@pugglepay.com</a>
-   <br />
-   <a href="https://twitter.com/patrik_karlin" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @patrik_karlin</a>
-   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-</p>
-</div>
-</div>
-</p>
 ]]></content>
   </entry>
   
