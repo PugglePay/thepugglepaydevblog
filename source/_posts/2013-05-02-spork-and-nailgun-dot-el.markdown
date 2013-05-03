@@ -43,6 +43,6 @@ you have some errors.
 
 Now your ready to run your tests with [`C-c , v`](https://github.com/pezra/rspec-mode)
 
-This plugin works well for our workflow so [try it out](https://github.com/PugglePay/spork-and-nailgun.el) your self.
+This plugin works well for our workflow so [try it out](https://github.com/PugglePay/spork-and-nailgun.el) yourself.
 
 {% render_partial sign/patrik.md %}
