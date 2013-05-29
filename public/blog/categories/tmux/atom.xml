@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tmux | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/tmux/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-28T23:14:07-04:00</updated>
+  <updated>2013-05-28T23:20:02-04:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -118,8 +118,9 @@ ServerAliveInterval 60</p>
   HostName pair-programming.pugglepay.net.
   User pair
   ForwardAgent yes
-  LocalForward 3000 127.0.0.1:3000
-```</p>
+  LocalForward 3000 127.0.0.1:3000</p>
+
+<p>```</p>
 
 <p>And then we just have to <code>ssh pp</code> to access the instance.</p>
 
@@ -142,14 +143,22 @@ we added to our <code>~/.emacs/init.el</code> file:</p>
 (global-set-key (kbd "M-[ b") (kbd "C-&lt;down&gt;"))
 </code></p>
 
-<p>This solution is pretty nice, but it restricts us to Emacs, vim, or editors that can be run in a terminal. It also requires a lot of effort to setup. We also get the super annoying scrolling with tmux (<code>C-b [</code>, is there a better way?).</p>
+<p>This solution is pretty nice, but it restricts us to Emacs, vim, or
+editors that can be run in a terminal. It also requires a lot of
+effort to setup. We also get the super annoying scrolling with tmux
+( <code>C-b [</code>, is there a better way?).</p>
 
 <p>It might have been easier to setup tmux with vim instead, but we have
 a much more efficient workflow with emacs at the moment.</p>
 
-<p>Though a nice side-effect of developping on the exact same type of instance that we deploy our application to is that we find bugs that we might not have we developping on our local machines. We found a bunch of timezone-related bugs for instance.</p>
+<p>Though a nice side-effect of developping on the exact same type of
+instance that we deploy our application to is that we find bugs that
+we might have missed while developping on our local machines. We found
+a bunch of timezone-related bugs for instance.</p>
 
-<p>The plus side is that one everything is in place, it's really comfortable to program. We share the same cursor, the same window, there is not compression artifacts, and all is super fast.</p>
+<p>The plus side is that once everything is in place, it's really
+comfortable to program. We share the same cursor, the same window,
+there is not compression artifacts, and all is super fast.</p>
 
 <p>This is clearly the best solution we have found so far. Plus it's a
 really geeky one, and we get to learn tmux along the way.</p>
