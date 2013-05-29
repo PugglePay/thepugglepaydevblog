@@ -99,6 +99,7 @@ Host pp
   User pair
   ForwardAgent yes
   LocalForward 3000 127.0.0.1:3000
+
 ```
 
 And then we just have to `ssh pp` to access the instance.
@@ -122,14 +123,23 @@ we added to our `~/.emacs/init.el` file:
 (global-set-key (kbd "M-[ b") (kbd "C-<down>"))
 ```
 
-This solution is pretty nice, but it restricts us to Emacs, vim, or editors that can be run in a terminal. It also requires a lot of effort to setup. We also get the super annoying scrolling with tmux (`C-b [`, is there a better way?).
+This solution is pretty nice, but it restricts us to Emacs, vim, or
+editors that can be run in a terminal. It also requires a lot of
+effort to setup. We also get the super annoying scrolling with tmux
+( `C-b [`, is there a better way?).
 
 It might have been easier to setup tmux with vim instead, but we have
 a much more efficient workflow with emacs at the moment.
 
-Though a nice side-effect of developping on the exact same type of instance that we deploy our application to is that we find bugs that we might not have we developping on our local machines. We found a bunch of timezone-related bugs for instance.
+Though a nice side-effect of developping on the exact same type of
+instance that we deploy our application to is that we find bugs that
+we might have missed while developping on our local machines. We found
+a bunch of timezone-related bugs for instance.
 
-The plus side is that one everything is in place, it's really comfortable to program. We share the same cursor, the same window, there is not compression artifacts, and all is super fast.
+The plus side is that once everything is in place, it's really
+comfortable to program. We share the same cursor, the same window,
+there is not compression artifacts, and all is super fast.
+
 
 This is clearly the best solution we have found so far. Plus it's a
 really geeky one, and we get to learn tmux along the way.
