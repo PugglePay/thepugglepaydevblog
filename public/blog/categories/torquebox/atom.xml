@@ -4,7 +4,7 @@
   <title><![CDATA[Category: torquebox | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/torquebox/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-04T00:38:45+02:00</updated>
+  <updated>2013-05-28T23:14:07-04:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
     <link href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
-    <updated>2013-05-03T10:42:00+02:00</updated>
+    <updated>2013-05-03T10:42:00-04:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
     <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent

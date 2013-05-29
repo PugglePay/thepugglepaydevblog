@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Pair Programming in the Cloud - PugglePay</title>
+  <meta name="author" content="dev">
+
+  
+  <meta name="description" content="At PugglePay, we like to program in pairs. When everyone is working in
+the same office, that&#8217;s pretty easy: we just share a computer, and use &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PugglePay" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img id="welcoming-puggle" src="/images/welcoming_puggle.png"></img>
+<hgroup>
+  <h1 id="header-title"><a href="/"><img id="logo-pugglepay" src="/images/logo_pugglepay.png"></img></a></h1>
+  
+    <h2 id="header-subtitle">Dev Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="https://github.com/PugglePay/hiring">Jobs</a></li>
+</ul>
+
+
+<ul class="social-links">
+  <li><a href="https://github.com/PugglePay" title="Follow on on Github" target="_blank"><img src="/images/github.png"></a></li>
+  <li><a href="https://twitter.com/PugglePay" title="Follow us on Twitter" target="_blank"><img src="/images/twitter.png"></a></li>
+  <li><a href="https://www.facebook.com/PugglePay" title="Follow us on Facebook" target="_blank"><img src="/images/facebook.png"></a></li>
+  <li><a href="/atom.xml" title="subscribe via RSS" target="_blank"><img src="/images/rss.png"></a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Pair Programming in the Cloud</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-28T21:53:00-04:00" pubdate data-updated="true">May 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>At PugglePay, we like to program in pairs. When everyone is working in
+the same office, that&#8217;s pretty easy: we just share a computer, and use
+whatever text editor the owner of the computer has (in our case
+Emacs, Vim or Sublime Text 2).</p>
+
+<p>But things get complicated when one of the developper decides to move
+abroad for a couple of months&#8230;</p>
+
+<!-- more -->
+
+
+<h2>First attempt: No Pair Programming</h2>
+
+<p>Well, the easiest solution is simply to stop pair programming and
+simply review each other&#8217;s code. But we observed that it&#8217;s really more
+difficult to solve problems in a simple and elegant way while
+programming on your own. One is also more reluctant to fix broken
+windows on code that is already written.</p>
+
+<p>So I guess that&#8217;s not a viable solution. Pair programming is great,
+and passing on it simply because we are not in the same place is just
+too sad.</p>
+
+<h3>Pros:</h3>
+
+<ul>
+<li>Trivial to setup</li>
+</ul>
+
+
+<h3>Cons:</h3>
+
+<ul>
+<li>Makes me a sad panda</li>
+</ul>
+
+
+<h2>Second attempt: Screen Sharing</h2>
+
+<p>The simple approach is to simply run some sort of screen
+sharing application. We have been using
+<a href="http://screenhero.com/">Screen Hero</a>, which is really awesome. Each
+user that joins a Screen Hero session gets his own cursor with his
+name on it. In addition to that, we run google hangouts or Skype to
+talk to each other.</p>
+
+<p>This works great, except that there is some lag for the users that are
+not hosting the session, and the quality of the video is not perfect.
+Spending most of the day writting code with an image full of
+compression artifact, even minors, is pretty painfull.</p>
+
+<p>Also, since we recently migrated to JRuby, some of us still use a
+not so powerful MacBook Air, running Skype + Screen Hero + Spork +
+Nailgun + Chrome made our computers really, REALLY slow.</p>
+
+<p>So that didn&#8217;t work for us, but if you have access to a really good
+internet connection and powerfull computers, this might be the best
+solution.</p>
+
+<h3>Pros:</h3>
+
+<ul>
+<li>Easy to setup</li>
+<li>Fancy cursors for everyone</li>
+</ul>
+
+
+<h3>Cons:</h3>
+
+<ul>
+<li>Slow</li>
+<li>Compression artifacts</li>
+</ul>
+
+
+<h2>Third attempt: AWS + SSH + tmux + Emacs</h2>
+
+<p>Inspired by other remote-working companies like
+<a href="http://thinkrelevance.com/">Relevance</a>, we decided to try a
+combination of SSH, tmux and Emacs. To make things easier, we decided
+to setup all that on a High CPU Amazon EC2 instance.</p>
+
+<p>To share sessions with <a href="http://tmux.sourceforge.net/">tmux</a>, we use
+<a href="https://github.com/zolrath/wemux">wemux</a>, which is a small wrapper
+around tmux to simplify multi-user sessions.</p>
+
+<p>I order to work with git, we simply need to active Agent Forwarding
+when we ssh in to the instance. It&#8217;s also interesting to setup some
+port forwarding when we want to run <code>rails server</code>.</p>
+
+<p>To do that automatically, we just configured a host in our local
+<code>~/.ssh/config</code> that look something like that:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ServerAliveInterval 60
+</span><span class='line'>
+</span><span class='line'>Host pp
+</span><span class='line'>  HostName pair-programming.pugglepay.net.
+</span><span class='line'>  User pair
+</span><span class='line'>  ForwardAgent yes
+</span><span class='line'>  LocalForward 3000 127.0.0.1:3000</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And then we just have to <code>ssh pp</code> to access the instance.</p>
+
+<p>We met some problem when running Emacs from the terminal, since the
+meta key (the <code>cmd</code> button on mac) is not properly interpreted. Also,
+<code>C-&lt;left&gt;</code> and <code>C-&lt;right&gt;</code> were not properly recognized.</p>
+
+<p><a href="http://www.iterm2.com/#/section/home">iTerm 2</a> solved the first
+problem. In the preference panel, under Profiles/Keys, select &#8220;Left
+otion key acts as +Esc&#8221;. Now we can use the <code>alt</code> key as the meta key.</p>
+
+<p>We solved the second problem within emacs, by mapping the ASCII escape
+sequence received from <code>C-&lt;direction&gt;</code> to <code>C-&lt;direction&gt;</code>. That&#8217;s what
+we added to our <code>~/.emacs/init.el</code> file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(global-set-key (kbd "M-[ c") (kbd "C-&lt;right&gt;"))
+</span><span class='line'>(global-set-key (kbd "M-[ d") (kbd "C-&lt;left&gt;"))
+</span><span class='line'>(global-set-key (kbd "M-[ a") (kbd "C-&lt;up&gt;"))
+</span><span class='line'>(global-set-key (kbd "M-[ b") (kbd "C-&lt;down&gt;"))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This solution is pretty nice, but it restricts us to Emacs, vim, or editors that can be run in a terminal. It also requires a lot of effort to setup. We also get the super annoying scrolling with tmux (<code>C-b [</code>, is there a better way?).</p>
+
+<p>It might have been easier to setup tmux with vim instead, but we have
+a much more efficient workflow with emacs at the moment.</p>
+
+<p>Though a nice side-effect of developping on the exact same type of instance that we deploy our application to is that we find bugs that we might not have we developping on our local machines. We found a bunch of timezone-related bugs for instance.</p>
+
+<p>The plus side is that one everything is in place, it&#8217;s really comfortable to program. We share the same cursor, the same window, there is not compression artifacts, and all is super fast.</p>
+
+<p>This is clearly the best solution we have found so far. Plus it&#8217;s a
+really geeky one, and we get to learn tmux along the way.</p>
+
+<h3>Pros:</h3>
+
+<ul>
+<li>Fast</li>
+<li>Convinient</li>
+<li>Geeky</li>
+</ul>
+
+
+<h3>Cons:</h3>
+
+<ul>
+<li>A lot of configuration</li>
+<li>No support for sublime text 2</li>
+<li>Weird scrolling with tmux</li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>We&#8217;re still kind of green in the field of remote pair programming, but
+we found a pretty good solution for now. There is clearly room for
+improvement, but remote pair programming feels pretty much like local
+pair programming (even arguably better).</p>
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+  </div>
+
+  <div class="author-about">
+    <h3>Jean-Louis Giordano</h3>
+    <ul class="author-links">
+      
+      <li>Passionate Developer</li>
+      
+
+      
+      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-28T21:53:00-04:00" pubdate data-updated="true">May 28<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/emacs/'>emacs</a>, <a class='category' href='/blog/categories/pair-programming/'>pair programming</a>, <a class='category' href='/blog/categories/remote/'>remote</a>, <a class='category' href='/blog/categories/screen-sharing/'>screen sharing</a>, <a class='category' href='/blog/categories/tmux/'>tmux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/" data-via="pugglepay" data-counturl="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/" title="Previous Post: Torquebox or: How I Learned to Stop Worrying and Love the JVM">&laquo; Torquebox or: How I Learned to Stop Worrying and Love the JVM</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/05/28/pair-programming-in-the-cloud/">Pair Programming in the Cloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">Torquebox or: How I Learned to Stop Worrying and Love the JVM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/02/spork-and-nailgun-dot-el/">spork_and_nailgun.el</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/PugglePay">@PugglePay</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'PugglePay',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - dev -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thepugglepaydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/';
+        var disqus_url = 'http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

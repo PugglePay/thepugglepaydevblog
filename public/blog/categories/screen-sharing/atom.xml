@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: emacs | PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/blog/categories/emacs/atom.xml" rel="self"/>
+  <title><![CDATA[Category: screen sharing | PugglePay]]></title>
+  <link href="http://devblog.pugglepay.com/blog/categories/screen-sharing/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
   <updated>2013-05-28T23:14:07-04:00</updated>
   <id>http://devblog.pugglepay.com/</id>
@@ -178,56 +178,6 @@ really geeky one, and we get to learn tmux along the way.</p>
 we found a pretty good solution for now. There is clearly room for
 improvement, but remote pair programming feels pretty much like local
 pair programming (even arguably better).</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00-04:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
-    <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at PugglePay, and that
-meant moving from MRI to JRuby. I order to cope with the slow start-up
-induced by the JVM we started using spork and nailgun for running our
-tests.</p>
-
-<p><a href="https://github.com/sporkrb/spork">Spork</a> preloads instances of your
-application for you to have faster startup for your tests. And nailgun
-(wich comes with JRuby) is a lower level tool to have jvm instances
-ready to go.</p>
-
-<p>Both of them stay alive between test runs and can get "corrupted". You
-also need to restart spork every time you change something that is
-outside what it reloads between each test (blueprints for example in
-our case).</p>
-
-<p>So we (eq me and Jean-Louis) decided to spend an hour to make this a
-bit easier. With the answer to all technical problems!</p>
-
-<!-- more -->
-
-
-<h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">An Emacs Plugin</a></h3>
-
-<p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex <code>C-c C-l</code>) to 'sang-start-all and run it.</p>
-
-<ul>
-<li>It will kill any running instances of spork and nailgun you have
-running (by looking up the port they are listening to),</li>
-<li>Jump to the root of the project your currently editing in and
-activate the right rvm env,</li>
-<li>Start upp Spork and nailgun in separate buffers.</li>
-</ul>
-
-
-<p>The spork buffer will popup and it can have some useful information if
-you have some errors.</p>
-
-<p><a href="http://imgur.com/RozzIIv"><img src="http://i.imgur.com/RozzIIv.png" title="Hosted by imgur.com"/></a></p>
-
-<p>Now your ready to run your tests with <a href="https://github.com/pezra/rspec-mode"><code>C-c , v</code></a></p>
-
-<p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> yourself.</p>
 ]]></content>
   </entry>
   

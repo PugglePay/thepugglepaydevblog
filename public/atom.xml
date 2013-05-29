@@ -4,7 +4,7 @@
   <title><![CDATA[PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-04T00:38:45+02:00</updated>
+  <updated>2013-05-28T23:14:07-04:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -14,9 +14,211 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Pair Programming in the Cloud]]></title>
+    <link href="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
+    <updated>2013-05-28T21:53:00-04:00</updated>
+    <id>http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
+    <content type="html"><![CDATA[<p>At PugglePay, we like to program in pairs. When everyone is working in
+the same office, that&#8217;s pretty easy: we just share a computer, and use
+whatever text editor the owner of the computer has (in our case
+Emacs, Vim or Sublime Text 2).</p>
+
+<p>But things get complicated when one of the developper decides to move
+abroad for a couple of months&#8230;</p>
+
+<!-- more -->
+
+
+<h2>First attempt: No Pair Programming</h2>
+
+<p>Well, the easiest solution is simply to stop pair programming and
+simply review each other&#8217;s code. But we observed that it&#8217;s really more
+difficult to solve problems in a simple and elegant way while
+programming on your own. One is also more reluctant to fix broken
+windows on code that is already written.</p>
+
+<p>So I guess that&#8217;s not a viable solution. Pair programming is great,
+and passing on it simply because we are not in the same place is just
+too sad.</p>
+
+<h3>Pros:</h3>
+
+<ul>
+<li>Trivial to setup</li>
+</ul>
+
+
+<h3>Cons:</h3>
+
+<ul>
+<li>Makes me a sad panda</li>
+</ul>
+
+
+<h2>Second attempt: Screen Sharing</h2>
+
+<p>The simple approach is to simply run some sort of screen
+sharing application. We have been using
+<a href="http://screenhero.com/">Screen Hero</a>, which is really awesome. Each
+user that joins a Screen Hero session gets his own cursor with his
+name on it. In addition to that, we run google hangouts or Skype to
+talk to each other.</p>
+
+<p>This works great, except that there is some lag for the users that are
+not hosting the session, and the quality of the video is not perfect.
+Spending most of the day writting code with an image full of
+compression artifact, even minors, is pretty painfull.</p>
+
+<p>Also, since we recently migrated to JRuby, some of us still use a
+not so powerful MacBook Air, running Skype + Screen Hero + Spork +
+Nailgun + Chrome made our computers really, REALLY slow.</p>
+
+<p>So that didn&#8217;t work for us, but if you have access to a really good
+internet connection and powerfull computers, this might be the best
+solution.</p>
+
+<h3>Pros:</h3>
+
+<ul>
+<li>Easy to setup</li>
+<li>Fancy cursors for everyone</li>
+</ul>
+
+
+<h3>Cons:</h3>
+
+<ul>
+<li>Slow</li>
+<li>Compression artifacts</li>
+</ul>
+
+
+<h2>Third attempt: AWS + SSH + tmux + Emacs</h2>
+
+<p>Inspired by other remote-working companies like
+<a href="http://thinkrelevance.com/">Relevance</a>, we decided to try a
+combination of SSH, tmux and Emacs. To make things easier, we decided
+to setup all that on a High CPU Amazon EC2 instance.</p>
+
+<p>To share sessions with <a href="http://tmux.sourceforge.net/">tmux</a>, we use
+<a href="https://github.com/zolrath/wemux">wemux</a>, which is a small wrapper
+around tmux to simplify multi-user sessions.</p>
+
+<p>I order to work with git, we simply need to active Agent Forwarding
+when we ssh in to the instance. It&#8217;s also interesting to setup some
+port forwarding when we want to run <code>rails server</code>.</p>
+
+<p>To do that automatically, we just configured a host in our local
+<code>~/.ssh/config</code> that look something like that:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ServerAliveInterval 60
+</span><span class='line'>
+</span><span class='line'>Host pp
+</span><span class='line'>  HostName pair-programming.pugglepay.net.
+</span><span class='line'>  User pair
+</span><span class='line'>  ForwardAgent yes
+</span><span class='line'>  LocalForward 3000 127.0.0.1:3000</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And then we just have to <code>ssh pp</code> to access the instance.</p>
+
+<p>We met some problem when running Emacs from the terminal, since the
+meta key (the <code>cmd</code> button on mac) is not properly interpreted. Also,
+<code>C-&lt;left&gt;</code> and <code>C-&lt;right&gt;</code> were not properly recognized.</p>
+
+<p><a href="http://www.iterm2.com/#/section/home">iTerm 2</a> solved the first
+problem. In the preference panel, under Profiles/Keys, select &#8220;Left
+otion key acts as +Esc&#8221;. Now we can use the <code>alt</code> key as the meta key.</p>
+
+<p>We solved the second problem within emacs, by mapping the ASCII escape
+sequence received from <code>C-&lt;direction&gt;</code> to <code>C-&lt;direction&gt;</code>. That&#8217;s what
+we added to our <code>~/.emacs/init.el</code> file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(global-set-key (kbd "M-[ c") (kbd "C-&lt;right&gt;"))
+</span><span class='line'>(global-set-key (kbd "M-[ d") (kbd "C-&lt;left&gt;"))
+</span><span class='line'>(global-set-key (kbd "M-[ a") (kbd "C-&lt;up&gt;"))
+</span><span class='line'>(global-set-key (kbd "M-[ b") (kbd "C-&lt;down&gt;"))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This solution is pretty nice, but it restricts us to Emacs, vim, or editors that can be run in a terminal. It also requires a lot of effort to setup. We also get the super annoying scrolling with tmux (<code>C-b [</code>, is there a better way?).</p>
+
+<p>It might have been easier to setup tmux with vim instead, but we have
+a much more efficient workflow with emacs at the moment.</p>
+
+<p>Though a nice side-effect of developping on the exact same type of instance that we deploy our application to is that we find bugs that we might not have we developping on our local machines. We found a bunch of timezone-related bugs for instance.</p>
+
+<p>The plus side is that one everything is in place, it&#8217;s really comfortable to program. We share the same cursor, the same window, there is not compression artifacts, and all is super fast.</p>
+
+<p>This is clearly the best solution we have found so far. Plus it&#8217;s a
+really geeky one, and we get to learn tmux along the way.</p>
+
+<h3>Pros:</h3>
+
+<ul>
+<li>Fast</li>
+<li>Convinient</li>
+<li>Geeky</li>
+</ul>
+
+
+<h3>Cons:</h3>
+
+<ul>
+<li>A lot of configuration</li>
+<li>No support for sublime text 2</li>
+<li>Weird scrolling with tmux</li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>We&#8217;re still kind of green in the field of remote pair programming, but
+we found a pretty good solution for now. There is clearly room for
+improvement, but remote pair programming feels pretty much like local
+pair programming (even arguably better).</p>
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+  </div>
+
+  <div class="author-about">
+    <h3>Jean-Louis Giordano</h3>
+    <ul class="author-links">
+      
+      <li>Passionate Developer</li>
+      
+
+      
+      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
     <link href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
-    <updated>2013-05-03T10:42:00+02:00</updated>
+    <updated>2013-05-03T10:42:00-04:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
     <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent
@@ -202,7 +404,7 @@ TorqueBox, please get in touch!</p>
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
     <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
+    <updated>2013-05-02T23:31:00-04:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
     <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at PugglePay, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up

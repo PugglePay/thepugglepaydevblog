@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nailgun | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/nailgun/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-04T00:38:45+02:00</updated>
+  <updated>2013-05-28T23:14:07-04:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
     <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
+    <updated>2013-05-02T23:31:00-04:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
     <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at PugglePay, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up
