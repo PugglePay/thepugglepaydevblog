@@ -4,7 +4,7 @@
   <title><![CDATA[Category: JVM | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/jvm/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-28T23:20:02-04:00</updated>
+  <updated>2013-10-09T16:05:45+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -14,9 +14,84 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Where is my stack? (Part 1): Goodbye Torquebox]]></title>
+    <link href="http://devblog.pugglepay.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox/"/>
+    <updated>2013-10-09T13:30:00+02:00</updated>
+    <id>http://devblog.pugglepay.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox</id>
+    <content type="html"><![CDATA[<p>So this is how it ends.</p>
+
+<p>This week was the last week we ran TorqueBox in production. We've had
+it running in production for 5 months. That's something! We
+switched to TorqueBox in the first place to avoid headache with system
+administration. Sadly, There Ain't No Such Thing As A Free Lunch
+(TANSTAAFL), and we traded our problems with new ones, namely JRuby
+and the JVM.</p>
+
+<!-- more -->
+
+
+<h2>Previously on "PugglePay"</h2>
+
+<p>In an <a href="/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">earlier post</a>, I discussed some problem we had with TorqueBox from the very
+beginning, but that we thought could overcome:</p>
+
+<ul>
+<li>slower tests</li>
+<li>memory leaks</li>
+<li>no zero-downtime deploy</li>
+</ul>
+
+
+<p>The only problem that was solved (and only recently) was the zero
+downtime deploy. Other problems have appeared in the meantime:</p>
+
+<ul>
+<li>gem incompatibility</li>
+<li>shaky OpenSSL support</li>
+<li>very tricky setup with Spork</li>
+<li>assets pre-compile that take forever</li>
+</ul>
+
+
+<h2>What to do?</h2>
+
+<p>Most of those problems are related to JRuby, and I'm confident that
+they will be solved someday. Another thing to point out is that we
+migrated a fairly large application, so it might be easier to spot
+memory leaks when building an app from the ground up.</p>
+
+<p>But for our case, we reached the conclusion that TorqueBox was not a
+good fit given our current needs, and went therefore the other way.</p>
+
+<p>And that meant the Unix way.</p>
+
+<p>Instead of adding the one big component, we've had to add a bunch of
+smaller ones. We are now using Nginx+Passenger Enterprise as web-server,
+Redis+Resque+resque_scheduler for cluster-wise scheduling, and Monit for
+keeping all those services running.</p>
+
+<p>So we did not want to become full-blown sysadmin, but that became the
+only viable option for us.</p>
+
+<p>We were only treating the symptom though, and not the decease: we did
+not want to become Sysadmins because the tooling we've been using for
+system administration were so painful to use.</p>
+
+<p>So that's how it all began: with looking for a replacement for our
+own mixture of ruby scripts and Chef recipes...</p>
+
+<h2>On the next episode of PugglePay Development</h2>
+
+<p>The team learns new encryption techniques ("We should totally use
+GPG!"), discover new tools ("Ansible all the things!") and write some
+libraries ("Mr. F~~").</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
     <link href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
-    <updated>2013-05-03T10:42:00-04:00</updated>
+    <updated>2013-05-03T10:42:00+02:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
     <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: screen sharing | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/screen-sharing/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2013-05-28T23:20:02-04:00</updated>
+  <updated>2013-10-09T16:05:45+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Pair Programming in the Cloud]]></title>
     <link href="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
-    <updated>2013-05-28T21:53:00-04:00</updated>
+    <updated>2013-05-28T21:53:00+02:00</updated>
     <id>http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
     <content type="html"><![CDATA[<p>At PugglePay, we like to program in pairs. When everyone is working in
 the same office, that's pretty easy: we just share a computer, and use
