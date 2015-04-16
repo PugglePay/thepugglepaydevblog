@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>The whys of reviewing - PugglePay</title>
+  <meta name="author" content="dev">
+
+  
+  <meta name="description" content="The other week we talked about reviews, why do we do them, what do we look at,
+and what do we get out of it. What we didn&#8217;t really discuss was &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PugglePay" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img id="welcoming-puggle" src="/images/welcoming_puggle.png"></img>
+<hgroup>
+  <h1 id="header-title"><a href="/"><img id="logo-pugglepay" src="/images/logo_pugglepay.png"></img></a></h1>
+  
+    <h2 id="header-subtitle">Dev Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="https://github.com/PugglePay/hiring">Jobs</a></li>
+</ul>
+
+
+<ul class="social-links">
+  <li><a href="https://github.com/PugglePay" title="Follow on on Github" target="_blank"><img src="/images/github.png"></a></li>
+  <li><a href="https://twitter.com/PugglePay" title="Follow us on Twitter" target="_blank"><img src="/images/twitter.png"></a></li>
+  <li><a href="https://www.facebook.com/PugglePay" title="Follow us on Facebook" target="_blank"><img src="/images/facebook.png"></a></li>
+  <li><a href="/atom.xml" title="subscribe via RSS" target="_blank"><img src="/images/rss.png"></a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">The Whys of Reviewing</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-16T14:42:00+02:00" pubdate data-updated="true">Apr 16<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>The other week we talked about reviews, why do we do them, what do we look at,
+and what do we get out of it.</p>
+
+<p>What we didn&#8217;t really discuss was the technical hows, these details come down to
+your own style. Some people like seeing the changes in increments, in a commit
+by commit view, some like to see the sum of changes in all their glory. This
+might be another meeting and another blog post.</p>
+
+<p>The answer here might seem obvious, but it&#8217;s nice to restate even the given
+answers. Maybe we find out that our set of reasons is larger than we think.</p>
+
+<!-- more -->
+
+
+<h2>Being right</h2>
+
+<p>Correctness is the obvious answer, and it&#8217;s a good one. I don&#8217;t know about you, but here at Zimpler we are all fallible humans, and a
+second set of eyes is always useful.</p>
+
+<p>This is what I like to think of as the &#8216;objective&#8217; part of the review. Either
+your code does what it should do, or it doesn&#8217;t. Either your tests cover the
+edge cases or they don&#8217;t.</p>
+
+<p>The points we collected under this heading were:
+- Does the code do what it&#8217;s supposed to?
+  - Does it follow the specification?
+  - Do the tests test the right stuff?
+- Does the code avoid breaking the rest of the system?
+  - Will the performance be good enough?
+  - Will the implementation break any expectations present in other parts of the</p>
+
+<pre><code>code?
+</code></pre>
+
+<ul>
+<li>Does the code directly contradict any planned changes?</li>
+</ul>
+
+
+<p>If the code does not measure up on these points, it&#8217;s pretty much going to get rejected, no
+discussion.</p>
+
+<p>I&#8217;d like to take an extra look at the final point: Planned Changes. Maybe you&#8217;ve
+been locked in your office for a week working on this feature, maybe another
+team is working on something you aren&#8217;t really aware of. And maybe your
+implementation will make thigns very hard for them.
+When this happend, you really have to think about who gets priority, and how to
+accomodate each other. You might not be wrong, but you might still have to
+change.
+In the end, any change will close some doors in the future while opening others.
+The thing you want to prevent here is direct conflicts with planned changes, not
+theoretical future strawmen. As a reviewer you should be reasonable in your
+expectations of the implementers soothsaying capabilities and aware of your own.</p>
+
+<h2>Being read</h2>
+
+<p>Even if your code is correct, it might not be obviously so. As I mentioned
+we&#8217;re all humans here, and we do copmlicated work, so any help is appreciated in
+understanding each others.</p>
+
+<p>This is a much more subjective side of the process. This is where you get into
+heated disscussions about names, line breaks and bikeshed colors, but it&#8217;s still
+important!</p>
+
+<p>Some points we lined up under this heading:
+- Help minimize technical debt.
+- Check readbility/understandability/styling.</p>
+
+<p>Restating the above, even if you&#8217;re right, your code might still be bad, the
+mitigating factor is that you might not be aware of it. Your reviewer is
+responsible for pointing out your nasty hacks, your convoluted logical
+constructs and your ugly bikesheds.</p>
+
+<p>For these kind of things, we won&#8217;t immediatley reject a story. Changes of this
+kind are often relatively minor and clear, so bouncing them back and forth often
+solves it in less time than restarting the story.</p>
+
+<p>Quite often you even get to prove your reviewer wrong, which is always a nice
+feeling.</p>
+
+<h2>Becoming enlightened</h2>
+
+<p>So what do we get out of all this?</p>
+
+<h3>Primary results</h3>
+
+<p>From the first part of the review, we get a working system, reasonable
+performance and a clear way forward.
+The code does its job without getting in the way of everyone else.</p>
+
+<p>In the second part we make sure to pave the way for more general future
+improvements. By reducing quirks, complications and unexpected behaviour we make
+it easier to get things done for future us.</p>
+
+<h3>Gazing into the abyss</h3>
+
+<p>Apart from the review&#8217;s positive effects on the code, the review also improves
+the reviewer, as well as the reviewee!</p>
+
+<p>Reading code is extremely important, it gives you both a better understanding of
+the code base you have, just from looking at parts your not currently working
+with. It also works as a puzzle, where you have to understand a different
+persons style of writing code.</p>
+
+<h3>Talking to your friends</h3>
+
+<p>While reading code is important, discussing code is vital. By critiquing and
+analyzing the code of your fellow programmers, you invite discussion on both
+design choices and styling.</p>
+
+<p>Discussion almost always leads to learning and that&#8217;s our final fringe benefit
+in the review process.</p>
+
+<h2>Reviewing should be fun</h2>
+
+<p>Revieweing improves your company in multiple ways beyond just the code. So make
+sure you do it well, be clear and honest in your review comments, and try to
+learn as much as you can as you go along.</p>
+
+<p>I&#8217;m planning to schedule another meeting to follow this up, on how to review
+code, and to how to help others review yours. After that I hope to do another
+blog post.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-04-16T14:42:00+02:00" pubdate data-updated="true">Apr 16<span>th</span>, 2015</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing/" data-via="pugglepay" data-counturl="http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/10/09/where-is-my-stack-part-1-torquebox/" title="Previous Post: Where is my stack? (Part 1): Goodbye Torquebox">&laquo; Where is my stack? (Part 1): Goodbye Torquebox</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/04/16/the-whys-of-reviewing/">The whys of reviewing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/09/where-is-my-stack-part-1-torquebox/">Where is my stack? (Part 1): Goodbye Torquebox</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/28/pair-programming-in-the-cloud/">Pair Programming in the Cloud</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">Torquebox or: How I Learned to Stop Worrying and Love the JVM</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/05/02/spork-and-nailgun-dot-el/">spork_and_nailgun.el</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/PugglePay">@PugglePay</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'PugglePay',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dev -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thepugglepaydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing/';
+        var disqus_url = 'http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-35253707-2', 'pugglepay.com');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>
