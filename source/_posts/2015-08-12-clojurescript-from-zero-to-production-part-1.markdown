@@ -46,11 +46,12 @@ fit.
 ## Our current setup
 
 Our stack consists of the following libraries:
-- [figwheel](https://github.com/bhauman/lein-figwheel)
-- [reagent](https://github.com/reagent-project/reagent) (and therefore react)
-- [re-frame](https://github.com/Day8/re-frame) (most epic README ever btw)
-- [kioo](https://github.com/ckirkendall/kioo)
-- [speclj](http://speclj.com/)
+
+ - [figwheel](https://github.com/bhauman/lein-figwheel)
+ - [reagent](https://github.com/reagent-project/reagent) (and therefore react)
+ - [re-frame](https://github.com/Day8/re-frame) (most epic README ever btw)
+ - [kioo](https://github.com/ckirkendall/kioo)
+ - [speclj](http://speclj.com/)
 
 [Figwheel](https://github.com/bhauman/lein-figwheel) is I think the
 key to the success of this app. It's trivial to setup, and you get
