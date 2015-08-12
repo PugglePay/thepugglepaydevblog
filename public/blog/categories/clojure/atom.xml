@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-08-12T16:18:36+02:00</updated>
+  <updated>2015-08-12T16:21:01+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -106,8 +106,9 @@ holding all our state, so this was an easy transition.</p>
 <h3>The iphone 4 javascript engine is utterly broken</h3>
 
 <p>We tracked down an incredible bug when using hashing functions that
-only happened on iphone 4 when NOT using a web inspector.
-You can read about it here: http://dev.clojure.org/jira/browse/CLJS-1380</p>
+only happened on iphone 4 when NOT using a web inspector.  You can
+read about it here:
+<a href="http://dev.clojure.org/jira/browse/CLJS-1380">http://dev.clojure.org/jira/browse/CLJS-1380</a></p>
 
 <p>TL;DR: the JIT compiler has broken inlining of bit operations on the
 iPhone 4 (note: not on the iphone 4S! only specifically using the
