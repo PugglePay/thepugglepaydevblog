@@ -14,6 +14,8 @@ your own style. Some people like seeing the changes in increments, in a commit
 by commit view, some like to see the sum of changes in all their glory. This
 might be another meeting and another blog post.
 
+<!-- more -->
+
 #The whys
 The answer here might seem obvious, but it's nice to restate even the given
 answers. Maybe we find out that our set of reasons is larger than we think.
