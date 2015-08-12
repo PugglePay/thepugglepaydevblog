@@ -4,7 +4,7 @@
   <title><![CDATA[PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-08-12T10:26:18+02:00</updated>
+  <updated>2015-08-12T16:01:20+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -12,6 +12,280 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ClojureScript: from zero to production (Part 1)]]></title>
+    <link href="http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
+    <updated>2015-08-12T13:22:00+02:00</updated>
+    <id>http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
+    <content type="html"><![CDATA[<p>A few weeks ago, we&#8217;ve released our first user-facing ClojureScript
+app. We developped it over the course of couple of months, starting
+from scratch.</p>
+
+<p>We had previously launched a couple of non-critical Clojure apps (our
+slack bot, some testing tools), most of our projects being written in
+Ruby.</p>
+
+<!-- more -->
+
+
+<h2>Motivation</h2>
+
+<p>PugglePay is a payment company, and we wanted to provide a page for
+our users to see their unpaid bills and get an overview of the last
+few transactions.</p>
+
+<p>After investigating our options, we decided that we should start a new
+separate project that access all relevant info from our backend via an
+API, then present it to the user in a nicely strucuted way.</p>
+
+<p>We&#8217;ve also decided that we did not want to have a user account and a
+system of login, instead access to the page should be through one-time
+links sent to the user along with each payment information.</p>
+
+<p>We therefore realised that we could have this app as a single-page
+JavaScript app. JavaScript
+<a href="https://www.destroyallsoftware.com/talks/wat">sucks</a>, so we wanted
+to find a better way to build client-rich apps. Therefore ClojureScript.</p>
+
+<p>We chose ClojureScript because we knew the semantics of Clojure were
+very good, and given our knowledge and experience, this was the best
+fit.</p>
+
+<h2>Our current setup</h2>
+
+<p>Our stack consists of the following libraries:
+- <a href="https://github.com/bhauman/lein-figwheel">figwheel</a>
+- <a href="https://github.com/reagent-project/reagent">reagent</a> (and therefore react)
+- <a href="https://github.com/Day8/re-frame">re-frame</a> (most epic README ever btw)
+- <a href="https://github.com/ckirkendall/kioo">kioo</a>
+- <a href="http://speclj.com/">speclj</a></p>
+
+<p><a href="https://github.com/bhauman/lein-figwheel">Figwheel</a> is I think the
+key to the success of this app. It&#8217;s trivial to setup, and you get
+interactive development without any particular editor support.</p>
+
+<p>This is very important, compared to the usual REPL-driven development
+of Clojure projects. This means that beginners can get started without
+having to setup anything, and focus on the code before focusing on
+setting up their environment.</p>
+
+<p>I believe the second important factor was using
+<a href="https://github.com/ckirkendall/kioo">Kioo</a>. Because the templates are
+made of pure HTML and are rendered using composable transformations,
+developpers and designers were able to work in parallel without
+interfering with each other and communicating using HTML as
+lingua-franca.</p>
+
+<p>This made the development very smooth.</p>
+
+<p>One weak point was testing setup, which ended up being a bit too much
+of a hassle to setup. New tools are now surfacing that would make
+things smoother in the future
+(<a href="https://github.com/bhauman/devcards">devcards</a> maybe?).</p>
+
+<h2>Lessons learned</h2>
+
+<p>I&#8217;ll just list a few here, more to come in later posts.</p>
+
+<h3>DOM manipulation is slow, React is awesome</h3>
+
+<p>In the first version of our app, we used
+<a href="https://github.com/ckirkendall/enfocus">enfocus</a> instead of
+<a href="https://github.com/ckirkendall/kioo">kioo</a>, and did not use React at
+all. This made the app much too slow when testing on the IPhone, so we
+re-wrote it using react.</p>
+
+<p>Fortunatelly, we had already structured the app around a single atom
+holding all our state, so this was an easy transition.</p>
+
+<h3>The iphone 4 javascript engine is utterly broken</h3>
+
+<p>We tracked down an incredible bug when using hashing functions that
+only happened on iphone 4 when NOT using a web inspector.
+You can read about it here: http://dev.clojure.org/jira/browse/CLJS-1380</p>
+
+<p>TL;DR: the JIT compiler has broken inlining of bit operations on the
+iPhone 4 (note: not on the iphone 4S! only specifically using the
+hardware version of the iphone 4). The solution: use <code>try ... catch</code>
+to disable JIT compiling for functions doing bit operations.</p>
+
+<p>Separate blog post coming soon!</p>
+
+<h3>re-frame is good</h3>
+
+<p>Once you get around to it, it&#8217;s a very small library that will help
+you organize the flow of your app. We started without, and all-in-all
+it was not bad, except for the part where we had to deal with side
+effects or query the app state in different in different ways and
+places.</p>
+
+<p>But still ended up with a structure that was very similar to re-frame,
+except less good, and adhering to the re-frame conventions helped us
+better structure everything with a linear flow of data.</p>
+
+<p>Separate blog post coming soon!</p>
+
+<h3>tracking errors is not a bad idea</h3>
+
+<p>We use <a href="https://app.honeybadger.io/">Honeybadger</a> to track errors on
+the page (that&#8217;s what we were using for our Rails app to begin
+with). We were afraid it would end up being very noisy, but we
+actually get only very few errors related to loading issues (and we
+plan to fix those).</p>
+
+<h3>Write integration specs in Clojure</h3>
+
+<p>The way we write integrations tests is to have a setup phase in our
+specs where we compile our app from withing Clojure using
+<code>cljs.build.api/build</code>, start a compojure / jetty server that serves
+the app and stubs the API the app talks to, and run the specs using
+<code>clj-webdriver</code> and phantomjs.</p>
+
+<p>Separate blog post coming soon!</p>
+
+<h2>Conclusion</h2>
+
+<p>We have been live for a few weeks now, and everything runs
+smoothly. Everybody at the office has contributed to the project, have
+a good understanding of its inner workings, and is satisfied with the
+result. All in all, a pretty good experience.</p>
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+  </div>
+
+  <div class="author-about">
+    <h3>Jean-Louis Giordano</h3>
+    <ul class="author-links">
+      
+      <li>Grumpy Developer</li>
+      
+
+      
+      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Where is my stack? (Part 2): GPG is awesome]]></title>
+    <link href="http://devblog.pugglepay.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome/"/>
+    <updated>2015-08-11T13:31:00+02:00</updated>
+    <id>http://devblog.pugglepay.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome</id>
+    <content type="html"><![CDATA[<p>Storing and sharing secrets is tricky. At PugglePay we used to do it
+by having a password encrypted file, and sharing that password with
+all the devs.</p>
+
+<p>This actually became a problem as we grew, because sharing a password
+is annoying. If we need to change the password for safety reasons, we
+need to communicate that to all devs.</p>
+
+<p>The solution is of course to use GPG encryption, and it&#8217;s actually not
+that difficult either.</p>
+
+<!-- more -->
+
+
+<h2>What is GPG?</h2>
+
+<p>GPG is a GNU implementation of the OpenPGP standard, a set of tools
+for encrypting and signing messages.</p>
+
+<p>PGP encryption works by encrypting the message you want to protect
+using a symetric key, then encrypting that key for each recipient of
+the message using asymetric encryption.</p>
+
+<p>The result of that is that each recipient has a set of public and
+private keys. You only need their public key to encrypt a message, but
+they will need their private key do decrypt it.</p>
+
+<h2>How to create a key pair?</h2>
+
+<p>First install a gpg package. On mac using brew, that would be:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install gpg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After that, use the <code>--gen-key</code> function:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --gen-key</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Follow the instructions, using whatever email you want to use as your
+key ID, then export the public key:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --export -a [email] &gt; public.key</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can now use that public key (or a list of them) to encrypt a file
+using <code>gpg --encrypt</code>.</p>
+
+<h2>How to use it to share secrets?</h2>
+
+<p>That&#8217;s actually pretty easy: just encrypt a file containing all the
+secrets using the public key of all your devs in a format that is
+easily parsable in your language of choice.</p>
+
+<p>We wrote a small library to do that in ruby: https://github.com/PugglePay/mrf</p>
+
+<h2>How to edit a GPG file?</h2>
+
+<p>You have several options. The easy one is to use an editor that
+supports editing GPG files. If you use emacs, you&#8217;re lucky because
+that&#8217;s built-in. If you use VIM, you can use a plugin.</p>
+
+<p>Alternativelly, you can use https://gpgtools.org/, which you might
+want to install anyway because that&#8217;s a good set of tools.</p>
+
+<p>Worst case, use <code>gpg --decrypt</code>, change the secrets, then re-encrypt
+using <code>gpg --encrypt</code>.</p>
+
+<h2>Conclusion</h2>
+
+<p>GPG is awesome, and we&#8217;ve also been using it to share one-off secrets
+we want to communicate over an insecure channel (like in a slack forum
+or in an email).</p>
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+  </div>
+
+  <div class="author-about">
+    <h3>Jean-Louis Giordano</h3>
+    <ul class="author-links">
+      
+      <li>Grumpy Developer</li>
+      
+
+      
+      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The whys of reviewing]]></title>
