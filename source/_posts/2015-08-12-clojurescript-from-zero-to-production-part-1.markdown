@@ -94,8 +94,9 @@ holding all our state, so this was an easy transition.
 ### The iphone 4 javascript engine is utterly broken
 
 We tracked down an incredible bug when using hashing functions that
-only happened on iphone 4 when NOT using a web inspector.
-You can read about it here: http://dev.clojure.org/jira/browse/CLJS-1380
+only happened on iphone 4 when NOT using a web inspector.  You can
+read about it here:
+[http://dev.clojure.org/jira/browse/CLJS-1380](http://dev.clojure.org/jira/browse/CLJS-1380)
 
 TL;DR: the JIT compiler has broken inlining of bit operations on the
 iPhone 4 (note: not on the iphone 4S! only specifically using the
