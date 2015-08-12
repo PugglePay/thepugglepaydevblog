@@ -28,7 +28,7 @@ few transactions.
 
 After investigating our options, we decided that we should start a new
 separate project that access all relevant info from our backend via an
-API, then present it to the user in a nicely strucuted way.
+API, then present it to the user in a nicely structured way.
 
 We've also decided that we did not want to have a user account and a
 system of login, instead access to the page should be through one-time
