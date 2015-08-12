@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-08-12T16:10:14+02:00</updated>
+  <updated>2015-08-12T16:18:36+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -54,12 +54,16 @@ fit.</p>
 
 <h2>Our current setup</h2>
 
-<p>Our stack consists of the following libraries:
-- <a href="https://github.com/bhauman/lein-figwheel">figwheel</a>
-- <a href="https://github.com/reagent-project/reagent">reagent</a> (and therefore react)
-- <a href="https://github.com/Day8/re-frame">re-frame</a> (most epic README ever btw)
-- <a href="https://github.com/ckirkendall/kioo">kioo</a>
-- <a href="http://speclj.com/">speclj</a></p>
+<p>Our stack consists of the following libraries:</p>
+
+<ul>
+<li><a href="https://github.com/bhauman/lein-figwheel">figwheel</a></li>
+<li><a href="https://github.com/reagent-project/reagent">reagent</a> (and therefore react)</li>
+<li><a href="https://github.com/Day8/re-frame">re-frame</a> (most epic README ever btw)</li>
+<li><a href="https://github.com/ckirkendall/kioo">kioo</a></li>
+<li><a href="http://speclj.com/">speclj</a></li>
+</ul>
+
 
 <p><a href="https://github.com/bhauman/lein-figwheel">Figwheel</a> is I think the
 key to the success of this app. It's trivial to setup, and you get
