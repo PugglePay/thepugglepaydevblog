@@ -1,6 +1,5 @@
 body > header {
   background: $header-bg;
-  background-image: url("/images/stripe_background.png");
   background-repeat: repeat-y;
   height: $header-height;
   h1 {
@@ -20,11 +19,11 @@ body > header {
     font-weight: bold;
   }
   #logo-pugglepay {
-    height: $header-height/4;
+    height: $header-height/5;
   }
   #welcoming-puggle {
     float: right;
-    height: $header-height + $header-padding-bottom;
+    height: ($header-height + $header-padding-bottom);
     margin-bottom: -$header-padding-bottom;
   }
 }
