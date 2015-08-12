@@ -2,7 +2,7 @@ jean-louis:
     name: Jean-Louis Giordano
     twitter: jellismymind
     email: jean-louis@pugglepay.com
-    title: "Passionate Developer"
+    title: "Grumpy Developer"
 
 patrik:
     name: Patrik Kårlin
@@ -15,6 +15,10 @@ magnus:
   name: Magnus Rex
   title: CTO
   email: magnus@pugglepay.com
+
+gustaf:
+  name: Gustaf
+  title: "Developer Oakenshield"
 
 dev:
     name: The Puggles
