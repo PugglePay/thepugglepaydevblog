@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-08-12T16:21:01+02:00</updated>
+  <updated>2015-08-12T16:23:10+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -19,7 +19,7 @@
     <updated>2015-08-12T13:22:00+02:00</updated>
     <id>http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
     <content type="html"><![CDATA[<p>A few weeks ago, we've released our first user-facing ClojureScript
-app. We developped it over the course of couple of months, starting
+app. We developed it over the course of couple of months, starting
 from scratch.</p>
 
 <p>We had previously launched a couple of non-critical Clojure apps (our
@@ -77,7 +77,7 @@ setting up their environment.</p>
 <p>I believe the second important factor was using
 <a href="https://github.com/ckirkendall/kioo">Kioo</a>. Because the templates are
 made of pure HTML and are rendered using composable transformations,
-developpers and designers were able to work in parallel without
+developers and designers were able to work in parallel without
 interfering with each other and communicating using HTML as
 lingua-franca.</p>
 
