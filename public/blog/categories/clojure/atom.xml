@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-08-12T16:05:29+02:00</updated>
+  <updated>2015-08-12T16:10:14+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -37,7 +37,7 @@ few transactions.</p>
 
 <p>After investigating our options, we decided that we should start a new
 separate project that access all relevant info from our backend via an
-API, then present it to the user in a nicely strucuted way.</p>
+API, then present it to the user in a nicely structured way.</p>
 
 <p>We've also decided that we did not want to have a user account and a
 system of login, instead access to the page should be through one-time
