@@ -11,7 +11,7 @@ author: jean-louis
 ---
 
 A few weeks ago, we've released our first user-facing ClojureScript
-app. We developped it over the course of couple of months, starting
+app. We developed it over the course of couple of months, starting
 from scratch.
 
 We had previously launched a couple of non-critical Clojure apps (our
@@ -65,7 +65,7 @@ setting up their environment.
 I believe the second important factor was using
 [Kioo](https://github.com/ckirkendall/kioo). Because the templates are
 made of pure HTML and are rendered using composable transformations,
-developpers and designers were able to work in parallel without
+developers and designers were able to work in parallel without
 interfering with each other and communicating using HTML as
 lingua-franca.
 
