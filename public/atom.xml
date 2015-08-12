@@ -4,7 +4,7 @@
   <title><![CDATA[PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-04-16T15:59:35+02:00</updated>
+  <updated>2015-08-12T10:21:24+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -25,6 +25,9 @@ and what do we get out of it.</p>
 your own style. Some people like seeing the changes in increments, in a commit
 by commit view, some like to see the sum of changes in all their glory. This
 might be another meeting and another blog post.</p>
+
+<!-- more -->
+
 
 <h1>The whys</h1>
 
@@ -149,6 +152,26 @@ learn as much as you can as you go along.</p>
 <p>I&#8217;m planning to schedule another meeting to follow this up, on how to review
 code, and to how to help others review yours. After that I hope to do another
 blog post.</p>
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e" alt="Gustaf" />
+  </div>
+
+  <div class="author-about">
+    <h3>Gustaf</h3>
+    <ul class="author-links">
+      
+      <li>Developer Oakenshield</li>
+      
+
+      
+      <li><a href="mailto: "></a></li>
+      
+
+      
+    </ul>
+  </div>
+</div>
 ]]></content>
   </entry>
   
@@ -233,7 +256,7 @@ libraries (&#8220;Mr. F~~&#8221;).</p>
     <h3>Jean-Louis Giordano</h3>
     <ul class="author-links">
       
-      <li>Passionate Developer</li>
+      <li>Grumpy Developer</li>
       
 
       
@@ -444,7 +467,7 @@ pair programming (even arguably better).</p>
     <h3>Jean-Louis Giordano</h3>
     <ul class="author-links">
       
-      <li>Passionate Developer</li>
+      <li>Grumpy Developer</li>
       
 
       
@@ -630,7 +653,7 @@ TorqueBox, please get in touch!</p>
     <h3>Jean-Louis Giordano</h3>
     <ul class="author-links">
       
-      <li>Passionate Developer</li>
+      <li>Grumpy Developer</li>
       
 
       

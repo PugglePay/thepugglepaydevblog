@@ -4,7 +4,7 @@
   <title><![CDATA[Category: reviewing | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/reviewing/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-04-16T15:59:35+02:00</updated>
+  <updated>2015-08-12T10:21:24+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -25,6 +25,9 @@ and what do we get out of it.</p>
 your own style. Some people like seeing the changes in increments, in a commit
 by commit view, some like to see the sum of changes in all their glory. This
 might be another meeting and another blog post.</p>
+
+<!-- more -->
+
 
 <h1>The whys</h1>
 
