@@ -163,42 +163,54 @@ might be a better way to do all this.</p>
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
 <span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
 </pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defproject </span><span class="nv">my-project</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span>
+</span><span class='line'>  <span class="ss">:description</span> <span class="s">&quot;FIXME: write this!&quot;</span>
+</span><span class='line'>  <span class="ss">:url</span> <span class="s">&quot;http://example.com/FIXME&quot;</span>
+</span><span class='line'>  <span class="ss">:license</span> <span class="p">{</span><span class="ss">:name</span> <span class="s">&quot;Eclipse Public License&quot;</span>
+</span><span class='line'>            <span class="ss">:url</span> <span class="s">&quot;http://www.eclipse.org/legal/epl-v10.html&quot;</span><span class="p">}</span>
+</span><span class='line'>
 </span><span class='line'>  <span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&quot;1.7.0&quot;</span><span class="p">]</span>
 </span><span class='line'>                 <span class="p">[</span><span class="nv">org.clojure/clojurescript</span> <span class="s">&quot;1.7.48&quot;</span><span class="p">]]</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="ss">:plugins</span> <span class="p">[[</span><span class="nv">lein-cljsbuild</span> <span class="s">&quot;1.0.6&quot;</span><span class="p">]]</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="ss">:resource-paths</span> <span class="p">[</span><span class="s">&quot;release&quot;</span> <span class="s">&quot;config&quot;</span><span class="p">]</span>
+</span><span class='line'>  <span class="ss">:source-paths</span> <span class="p">[</span><span class="s">&quot;src&quot;</span><span class="p">]</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="ss">:target-path</span> <span class="s">&quot;target/%s/&quot;</span>
+</span><span class='line'>  <span class="ss">:resource-paths</span> <span class="p">[</span><span class="s">&quot;resources&quot;</span> <span class="s">&quot;resources/public&quot;</span><span class="p">]</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="ss">:cljsbuild</span> <span class="p">{</span><span class="ss">:builds</span>
-</span><span class='line'>              <span class="p">{</span><span class="ss">:main</span>
-</span><span class='line'>               <span class="p">{</span><span class="ss">:source-paths</span> <span class="p">[</span><span class="s">&quot;src&quot;</span><span class="p">]</span>
-</span><span class='line'>                <span class="ss">:compiler</span> <span class="p">{</span><span class="ss">:main</span> <span class="s">&quot;my-project.core&quot;</span>
-</span><span class='line'>                           <span class="ss">:output-to</span> <span class="s">&quot;resources/public/out/main.js&quot;</span>
-</span><span class='line'>                           <span class="ss">:output-dir</span> <span class="s">&quot;resources/public/out&quot;</span>
-</span><span class='line'>                           <span class="ss">:optimizations</span> <span class="ss">:advanced</span><span class="p">}}}}</span>
+</span><span class='line'>  <span class="ss">:cljsbuild</span>
+</span><span class='line'>  <span class="p">{</span><span class="ss">:builds</span>
+</span><span class='line'>   <span class="p">{</span><span class="ss">:main</span> <span class="p">{</span><span class="ss">:source-paths</span> <span class="p">[</span><span class="s">&quot;src&quot;</span><span class="p">]</span>
+</span><span class='line'>           <span class="ss">:compiler</span> <span class="p">{</span><span class="ss">:output-to</span> <span class="s">&quot;resources/public/out/my_project.js&quot;</span>
+</span><span class='line'>                      <span class="ss">:optimizations</span> <span class="ss">:advanced</span>
+</span><span class='line'>                      <span class="ss">:main</span> <span class="nv">my-project.core</span>
+</span><span class='line'>                      <span class="ss">:pretty-print</span> <span class="nv">false</span><span class="p">}}}}</span>
 </span><span class='line'>
 </span><span class='line'>  <span class="ss">:profiles</span>
-</span><span class='line'>  <span class="p">{</span><span class="ss">:dev</span> <span class="p">{</span><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">figwheel</span> <span class="s">&quot;0.3.8&quot;</span><span class="p">]]</span>
-</span><span class='line'>
+</span><span class='line'>  <span class="p">{</span><span class="ss">:dev</span> <span class="p">{</span><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">figwheel</span> <span class="s">&quot;0.3.8&quot;</span><span class="p">]</span>
+</span><span class='line'>                        <span class="p">[</span><span class="nv">org.clojure/tools.nrepl</span> <span class="s">&quot;0.2.10&quot;</span><span class="p">]]</span>
 </span><span class='line'>         <span class="ss">:plugins</span> <span class="p">[[</span><span class="nv">lein-figwheel</span> <span class="s">&quot;0.3.8&quot;</span><span class="p">]]</span>
 </span><span class='line'>
-</span><span class='line'>         <span class="ss">:clean-targets</span> <span class="o">^</span><span class="p">{</span><span class="ss">:protect</span> <span class="nv">false</span><span class="p">}</span> <span class="p">[</span><span class="s">&quot;./target&quot;</span>
-</span><span class='line'>                                           <span class="s">&quot;./resources/public/out&quot;</span><span class="p">]</span>
+</span><span class='line'>         <span class="ss">:cljsbuild</span>
+</span><span class='line'>         <span class="p">{</span><span class="ss">:builds</span>
+</span><span class='line'>          <span class="p">{</span><span class="ss">:main</span> <span class="p">{</span><span class="ss">:source-paths</span> <span class="p">[</span><span class="s">&quot;src&quot;</span><span class="p">]</span>
+</span><span class='line'>                  <span class="ss">:figwheel</span> <span class="p">{</span><span class="ss">:on-jsload</span> <span class="s">&quot;my-project.core/on-js-reload&quot;</span><span class="p">}</span>
+</span><span class='line'>                  <span class="ss">:compiler</span> <span class="p">{</span><span class="ss">:main</span> <span class="nv">my-project.core</span>
+</span><span class='line'>                             <span class="ss">:optimization</span> <span class="ss">:none</span>
+</span><span class='line'>                             <span class="ss">:asset-path</span> <span class="s">&quot;out&quot;</span>
+</span><span class='line'>                             <span class="ss">:output-to</span> <span class="s">&quot;resources/public/out/my_project.js&quot;</span>
+</span><span class='line'>                             <span class="ss">:output-dir</span> <span class="s">&quot;resources/public/out&quot;</span>
+</span><span class='line'>                             <span class="ss">:source-map-timestamp</span> <span class="nv">true</span><span class="p">}}}}</span>
 </span><span class='line'>
-</span><span class='line'>         <span class="ss">:cljsbuild</span> <span class="p">{</span><span class="ss">:builds</span>
-</span><span class='line'>                     <span class="p">{</span><span class="ss">:main</span>
-</span><span class='line'>                      <span class="p">{</span><span class="ss">:figwheel</span> <span class="p">{</span><span class="c1">;; :websocket-host &quot;192.168.1.65&quot;</span>
-</span><span class='line'>                                  <span class="ss">:on-jsload</span> <span class="s">&quot;my-project.core/on-js-reload&quot;</span><span class="p">}</span>
-</span><span class='line'>                       <span class="ss">:compiler</span> <span class="p">{</span><span class="ss">:main</span> <span class="s">&quot;my-project.core&quot;</span>
-</span><span class='line'>                                  <span class="ss">:output-to</span> <span class="s">&quot;resources/public/out/main.js&quot;</span>
-</span><span class='line'>                                  <span class="ss">:output-dir</span> <span class="s">&quot;resources/public/out&quot;</span>
-</span><span class='line'>                                  <span class="ss">:asset-path</span> <span class="s">&quot;out&quot;</span>
-</span><span class='line'>                                  <span class="ss">:figwheel</span> <span class="nv">true</span>
-</span><span class='line'>                                  <span class="ss">:optimizations</span> <span class="ss">:none</span><span class="p">}}}}}})</span>
+</span><span class='line'>         <span class="ss">:figwheel</span> <span class="p">{</span><span class="ss">:css-dirs</span> <span class="p">[</span><span class="s">&quot;resources/public/css&quot;</span><span class="p">]}</span>
+</span><span class='line'>
+</span><span class='line'>         <span class="ss">:clean-targets</span> <span class="o">^</span><span class="p">{</span><span class="ss">:protect</span> <span class="nv">false</span><span class="p">}</span> <span class="p">[</span><span class="s">&quot;resources/public/js/compiled&quot;</span> <span class="s">&quot;target&quot;</span><span class="p">]}})</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

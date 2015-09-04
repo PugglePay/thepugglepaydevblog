@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ClojureScript | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojurescript/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:28:32+02:00</updated>
+  <updated>2015-09-04T20:31:32+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -57,45 +57,54 @@ might be a better way to do all this.</p>
 
 <p>```clojure
 (defproject my-project "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.7.0"]</p>
+  :description "FIXME: write this!"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"</p>
+
+<pre><code>        :url "http://www.eclipse.org/legal/epl-v10.html"}
+</code></pre>
+
+<p>  :dependencies [[org.clojure/clojure "1.7.0"]</p>
 
 <pre><code>             [org.clojure/clojurescript "1.7.48"]]
 </code></pre>
 
 <p>  :plugins [[lein-cljsbuild "1.0.6"]]</p>
 
-<p>  :resource-paths ["release" "config"]</p>
+<p>  :source-paths ["src"]</p>
 
-<p>  :target-path "target/%s/"</p>
+<p>  :resource-paths ["resources" "resources/public"]</p>
 
-<p>  :cljsbuild {:builds</p>
+<p>  :cljsbuild
+  {:builds
+   {:main {:source-paths ["src"]</p>
 
-<pre><code>          {:main
-           {:source-paths ["src"]
-            :compiler {:main "my-project.core"
-                       :output-to "resources/public/out/main.js"
-                       :output-dir "resources/public/out"
-                       :optimizations :advanced}}}}
+<pre><code>       :compiler {:output-to "resources/public/out/my_project.js"
+                  :optimizations :advanced
+                  :main my-project.core
+                  :pretty-print false}}}}
 </code></pre>
 
 <p>  :profiles
-  {:dev {:dependencies [[figwheel "0.3.8"]]</p>
+  {:dev {:dependencies [[figwheel "0.3.8"]</p>
 
-<pre><code>     :plugins [[lein-figwheel "0.3.8"]]
+<pre><code>                    [org.clojure/tools.nrepl "0.2.10"]]
+     :plugins [[lein-figwheel "0.3.8"]]
 
-     :clean-targets ^{:protect false} ["./target"
-                                       "./resources/public/out"]
+     :cljsbuild
+     {:builds
+      {:main {:source-paths ["src"]
+              :figwheel {:on-jsload "my-project.core/on-js-reload"}
+              :compiler {:main my-project.core
+                         :optimization :none
+                         :asset-path "out"
+                         :output-to "resources/public/out/my_project.js"
+                         :output-dir "resources/public/out"
+                         :source-map-timestamp true}}}}
 
-     :cljsbuild {:builds
-                 {:main
-                  {:figwheel {;; :websocket-host "192.168.1.65"
-                              :on-jsload "my-project.core/on-js-reload"}
-                   :compiler {:main "my-project.core"
-                              :output-to "resources/public/out/main.js"
-                              :output-dir "resources/public/out"
-                              :asset-path "out"
-                              :figwheel true
-                              :optimizations :none}}}}}})
+     :figwheel {:css-dirs ["resources/public/css"]}
+
+     :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]}})
 </code></pre>
 
 <p>```</p>
