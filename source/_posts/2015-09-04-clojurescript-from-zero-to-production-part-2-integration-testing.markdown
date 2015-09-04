@@ -246,7 +246,7 @@ Then we're ready to write our first spec! In
 
 You can find an example of minimal setup here: [https://github.com/Jell/cljs-autospec-example](https://github.com/Jell/cljs-autospec-example).
 
-This follows closelly the instructions in this blogpost.
+This follows closely the instructions in this blogpost.
 
 ## Extra tips
 
