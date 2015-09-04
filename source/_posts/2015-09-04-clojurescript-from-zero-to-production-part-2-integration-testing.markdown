@@ -23,7 +23,7 @@ tests using `leiningen`, `clj-webdriver` and `speclj`.
 
 The goal is to get the integration tests to be run every time we save
 a file. Getting to run individual tests from the REPL was not a goal
-here, because we did not want to force the developpers to have any
+here, because we did not want to force the developers to have any
 particular integration with their editors to get a good development
 experience.
 
