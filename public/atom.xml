@@ -4,7 +4,7 @@
   <title><![CDATA[PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:38:46+02:00</updated>
+  <updated>2015-09-04T20:40:35+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -386,7 +386,7 @@ docs.</p>
 
 <p>You can find an example of minimal setup here: <a href="https://github.com/Jell/cljs-autospec-example">https://github.com/Jell/cljs-autospec-example</a>.</p>
 
-<p>This follows closelly the instructions in this blogpost.</p>
+<p>This follows closely the instructions in this blogpost.</p>
 
 <h2>Extra tips</h2>
 
