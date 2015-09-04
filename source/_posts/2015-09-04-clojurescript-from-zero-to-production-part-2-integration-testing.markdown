@@ -107,7 +107,8 @@ dependencies we need:
 If we dissect the above, we're adding compojure and a ring jetty
 adapter so we can serve our compile app to a browser, `clj-webdriver`
 will be interacting with the browser and `speclj` will be used to run
-the test. `speclj` could be replace with any other testing library.
+the test. Note that `speclj` could be replaced with any other testing
+library.
 
 We'll put our tests in a separate `spec` folder at the root of the
 project, that's why we add it to the test paths.
