@@ -1,0 +1,672 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>ClojureScript: From Zero to Production (Part 2) - Integration Testing - PugglePay</title>
+  <meta name="author" content="dev">
+
+  
+  <meta name="description" content="If you are building a single page ClojureScript app, you might be
+wondering how to write integration specs for it. By integration specs,
+I mean tests &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="PugglePay" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><img id="welcoming-puggle" src="/images/welcoming_puggle.png"></img>
+<hgroup>
+  <h1 id="header-title"><a href="/"><img id="logo-pugglepay" src="/images/logo_pugglepay.png"></img></a></h1>
+  
+    <h2 id="header-subtitle">Dev Blog</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://pugglepay.com/about-us/careers/">Jobs</a></li>
+</ul>
+
+
+<ul class="social-links">
+  <li><a href="https://github.com/PugglePay" title="Follow on on Github" target="_blank"><img src="/images/github.png"></a></li>
+  <li><a href="https://twitter.com/PugglePay" title="Follow us on Twitter" target="_blank"><img src="/images/twitter.png"></a></li>
+  <li><a href="https://www.facebook.com/PugglePay" title="Follow us on Facebook" target="_blank"><img src="/images/facebook.png"></a></li>
+  <li><a href="/atom.xml" title="subscribe via RSS" target="_blank"><img src="/images/rss.png"></a></li>
+</ul>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">ClojureScript: From Zero to Production (Part 2) - Integration Testing</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-04T14:09:00+02:00" pubdate data-updated="true">Sep 4<span>th</span>, 2015</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you are building a single page ClojureScript app, you might be
+wondering how to write integration specs for it. By integration specs,
+I mean tests that are run in the browser against a build that is as
+close to the production app as possible.</p>
+
+<p>In this post, I&#8217;ll show you our setup to get autorunning integration
+tests using <code>leiningen</code>, <code>clj-webdriver</code> and <code>speclj</code>.</p>
+
+<!-- more -->
+
+
+<h2>Goal</h2>
+
+<p>The goal is to get the integration tests to be run every time we save
+a file. Getting to run individual tests from the REPL was not a goal
+here, because we did not want to force the developpers to have any
+particular integration with their editors to get a good development
+experience.</p>
+
+<h2>Dependencies</h2>
+
+<p>We need to run the tests in a browser that is &#8220;driveable&#8221; by
+WebDriver. We chose <a href="https://github.com/ariya/phantomjs">phantomjs</a>
+because it&#8217;s easy to install and fast enough.</p>
+
+<p>You can install it with <code>apt-get install phantomjs</code>, <code>brew install
+phantomjs</code>, or your favourite package manager.</p>
+
+<h2>Setting up your project.clj</h2>
+
+<p>You&#8217;ll need a new build target in your <code>project.clj</code>.</p>
+
+<p>Note: this assumes you&#8217;re using leiningen. If you&#8217;re using boot, there
+might be a better way to do all this.</p>
+
+<p>Before adding integration tests, your <code>project.clj</code> should look something like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defproject </span><span class="nv">my-project</span> <span class="s">&quot;0.1.0-SNAPSHOT&quot;</span>
+</span><span class='line'>  <span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">org.clojure/clojure</span> <span class="s">&quot;1.7.0&quot;</span><span class="p">]</span>
+</span><span class='line'>                 <span class="p">[</span><span class="nv">org.clojure/clojurescript</span> <span class="s">&quot;1.7.48&quot;</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ss">:plugins</span> <span class="p">[[</span><span class="nv">lein-cljsbuild</span> <span class="s">&quot;1.0.6&quot;</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ss">:resource-paths</span> <span class="p">[</span><span class="s">&quot;release&quot;</span> <span class="s">&quot;config&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ss">:target-path</span> <span class="s">&quot;target/%s/&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ss">:cljsbuild</span> <span class="p">{</span><span class="ss">:builds</span>
+</span><span class='line'>              <span class="p">{</span><span class="ss">:main</span>
+</span><span class='line'>               <span class="p">{</span><span class="ss">:source-paths</span> <span class="p">[</span><span class="s">&quot;src&quot;</span><span class="p">]</span>
+</span><span class='line'>                <span class="ss">:compiler</span> <span class="p">{</span><span class="ss">:main</span> <span class="s">&quot;my-project.core&quot;</span>
+</span><span class='line'>                           <span class="ss">:output-to</span> <span class="s">&quot;resources/public/out/main.js&quot;</span>
+</span><span class='line'>                           <span class="ss">:output-dir</span> <span class="s">&quot;resources/public/out&quot;</span>
+</span><span class='line'>                           <span class="ss">:optimizations</span> <span class="ss">:advanced</span><span class="p">}}}}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ss">:profiles</span>
+</span><span class='line'>  <span class="p">{</span><span class="ss">:dev</span> <span class="p">{</span><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">figwheel</span> <span class="s">&quot;0.3.8&quot;</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>         <span class="ss">:plugins</span> <span class="p">[[</span><span class="nv">lein-figwheel</span> <span class="s">&quot;0.3.8&quot;</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>         <span class="ss">:clean-targets</span> <span class="o">^</span><span class="p">{</span><span class="ss">:protect</span> <span class="nv">false</span><span class="p">}</span> <span class="p">[</span><span class="s">&quot;./target&quot;</span>
+</span><span class='line'>                                           <span class="s">&quot;./resources/public/out&quot;</span><span class="p">]</span>
+</span><span class='line'>
+</span><span class='line'>         <span class="ss">:cljsbuild</span> <span class="p">{</span><span class="ss">:builds</span>
+</span><span class='line'>                     <span class="p">{</span><span class="ss">:main</span>
+</span><span class='line'>                      <span class="p">{</span><span class="ss">:figwheel</span> <span class="p">{</span><span class="c1">;; :websocket-host &quot;192.168.1.65&quot;</span>
+</span><span class='line'>                                  <span class="ss">:on-jsload</span> <span class="s">&quot;my-project.core/on-js-reload&quot;</span><span class="p">}</span>
+</span><span class='line'>                       <span class="ss">:compiler</span> <span class="p">{</span><span class="ss">:main</span> <span class="s">&quot;my-project.core&quot;</span>
+</span><span class='line'>                                  <span class="ss">:output-to</span> <span class="s">&quot;resources/public/out/main.js&quot;</span>
+</span><span class='line'>                                  <span class="ss">:output-dir</span> <span class="s">&quot;resources/public/out&quot;</span>
+</span><span class='line'>                                  <span class="ss">:asset-path</span> <span class="s">&quot;out&quot;</span>
+</span><span class='line'>                                  <span class="ss">:figwheel</span> <span class="nv">true</span>
+</span><span class='line'>                                  <span class="ss">:optimizations</span> <span class="ss">:none</span><span class="p">}}}}}})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Let&#8217;s add a new profile for integrations specs with all the extra
+dependencies we need:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'>   <span class="ss">:integration</span> <span class="p">{</span><span class="ss">:dependencies</span> <span class="p">[[</span><span class="nv">compojure</span> <span class="s">&quot;1.3.4&quot;</span><span class="p">]</span>
+</span><span class='line'>                                <span class="p">[</span><span class="nv">ring/ring-jetty-adapter</span> <span class="s">&quot;1.4.0-RC1&quot;</span><span class="p">]</span>
+</span><span class='line'>                                <span class="p">[</span><span class="nv">clj-webdriver</span> <span class="s">&quot;0.6.1&quot;</span><span class="p">]</span>
+</span><span class='line'>                                <span class="p">[</span><span class="nv">speclj</span> <span class="s">&quot;3.3.1&quot;</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>                 <span class="ss">:plugins</span> <span class="p">[[</span><span class="nv">speclj</span> <span class="s">&quot;3.2.0&quot;</span><span class="p">]]</span>
+</span><span class='line'>
+</span><span class='line'>                 <span class="ss">:test-paths</span> <span class="p">[</span><span class="s">&quot;src&quot;</span> <span class="s">&quot;spec&quot;</span><span class="p">]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If we dissect the above, we&#8217;re adding compojure and a ring jetty
+adapter so we can serve our compile app to a browser, <code>clj-webdriver</code>
+will be interacting with the browser and <code>speclj</code> will be used to run
+the test. <code>speclj</code> could be replace with any other testing library.</p>
+
+<p>We&#8217;ll put our tests in a separate <code>spec</code> folder at the root of the
+project, that&#8217;s why we add it to the test paths.</p>
+
+<h2>Setup the tests</h2>
+
+<p>To run the integration tests, and every time we save one of the source
+files, we need the following steps:</p>
+
+<ul>
+<li><p>Compile the ClojureScript app</p></li>
+<li><p>Start a webserver to serve the app</p></li>
+<li><p>Setup a WebDriver that can visit the app served by the webserver.</p></li>
+</ul>
+
+
+<p>Using <code>speclj</code>, this will mean adding a bunch of wrappers around our
+actual specs.</p>
+
+<p>Let&#8217;s start with writting a webserver that will help us serve our app
+in <code>spec/my_project/spec_utils/server.clj</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">ns </span><span class="nv">my.project.spec-utils.server</span>
+</span><span class='line'>  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clojure.java.io</span> <span class="ss">:as</span> <span class="nv">io</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">compojure.core</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">routes</span> <span class="nv">GET</span> <span class="nv">defroutes</span><span class="p">]]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">compojure.route</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">resources</span><span class="p">]]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">compojure.handler</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">api</span><span class="p">]]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">ring.adapter.jetty</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">run-jetty</span><span class="p">]]))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nf">defroutes</span> <span class="nv">http-handler</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">resources</span> <span class="s">&quot;/&quot;</span> <span class="ss">:root</span> <span class="s">&quot;resources/public&quot;</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">start</span> <span class="p">[</span><span class="nv">port</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">run-jetty</span> <span class="nv">http-handler</span> <span class="p">{</span><span class="ss">:port</span> <span class="nv">port</span> <span class="ss">:join?</span> <span class="nv">false</span><span class="p">}))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This is a very simple server that will server all static files from
+the <code>resources/public</code> folder.</p>
+
+<p>Next, let&#8217;s add a compiler in <code>spec/my_project/spec_utils/compiler.clj</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">ns </span><span class="nv">my-project.spec-utils.compiler</span>
+</span><span class='line'>  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">cljs.build.api</span><span class="p">]))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">build-cljs!</span>
+</span><span class='line'>  <span class="s">&quot;Builds cljs for integration specs&quot;</span>
+</span><span class='line'>  <span class="p">[]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">println </span><span class="s">&quot;building cljs&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">cljs.build.api/build</span>
+</span><span class='line'>   <span class="s">&quot;src&quot;</span>
+</span><span class='line'>   <span class="p">{</span><span class="ss">:main</span> <span class="ss">&#39;my-project.core</span>
+</span><span class='line'>    <span class="ss">:output-to</span> <span class="s">&quot;resources/public/integration/main.js&quot;</span>
+</span><span class='line'>    <span class="ss">:output-dir</span> <span class="s">&quot;resources/public/integration&quot;</span>
+</span><span class='line'>    <span class="ss">:asset-path</span> <span class="s">&quot;integration&quot;</span>
+</span><span class='line'>    <span class="ss">:optimizations</span> <span class="ss">:none</span>
+</span><span class='line'>    <span class="ss">:static-fns</span> <span class="nv">true</span> <span class="c1">; for phantomjs/safari</span>
+</span><span class='line'>    <span class="p">}))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And finally, we&#8217;ll need the phantomjs driver (<code>spec/my_project/spec_utils/phantomjs.clj</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">ns </span><span class="nv">my-project.spec-utils.phantomjs</span>
+</span><span class='line'>  <span class="p">(</span><span class="ss">:import</span> <span class="p">[</span><span class="nv">org.openqa.selenium.phantomjs</span> <span class="nv">PhantomJSDriver</span><span class="p">]</span>
+</span><span class='line'>           <span class="p">[</span><span class="nv">org.openqa.selenium.remote</span> <span class="nv">DesiredCapabilities</span><span class="p">]))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">driver</span> <span class="p">[]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">PhantomJSDriver.</span>
+</span><span class='line'>   <span class="p">(</span><span class="nb">doto </span><span class="p">(</span><span class="nf">DesiredCapabilities.</span><span class="p">)</span>
+</span><span class='line'>     <span class="p">(</span><span class="nf">.setCapability</span> <span class="s">&quot;phantomjs.cli.args&quot;</span>
+</span><span class='line'>                     <span class="p">(</span><span class="nb">into-array </span><span class="nv">String</span> <span class="p">[</span><span class="s">&quot;--ignore-ssl-errors=true&quot;</span>
+</span><span class='line'>                                         <span class="s">&quot;--webdriver-loglevel=warn&quot;</span><span class="p">])))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There&#8217;s a bit of Java incantations here to parametrize the
+driver. Webdriver is using the Java version of the Selenium webdriver,
+so if you want to configure this further you can look into Selenium&#8217;s
+docs.</p>
+
+<p>Finally, let&#8217;s create a single-entry utils file
+<code>spec/my_project/spec_utils.clj</code> to combine all of the above:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">ns </span><span class="nv">my-project.spec-utils</span>
+</span><span class='line'>  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clj-webdriver.taxi</span> <span class="ss">:as</span> <span class="nv">t</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">clj-webdriver.driver</span> <span class="ss">:as</span> <span class="nv">driver</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">my-project.spec-utils.server</span> <span class="ss">:as</span> <span class="nv">server</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">my-project.spec-utils.compiler</span> <span class="ss">:as</span> <span class="nv">compiler</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">my-project.spec-utils.phantomjs</span> <span class="ss">:as</span> <span class="nv">phantomjs</span><span class="p">]))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">build-cljs!</span> <span class="nv">compiler/build-cljs!</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">with-server</span>
+</span><span class='line'>  <span class="s">&quot;Start a server to host the js files&quot;</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">specs</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">println </span><span class="s">&quot;starting server&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">svr</span> <span class="p">(</span><span class="nf">server/start</span> <span class="mi">10555</span><span class="p">)]</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">try</span> <span class="p">(</span><span class="nf">specs</span><span class="p">)</span> <span class="p">(</span><span class="nf">finally</span> <span class="p">(</span><span class="nf">.stop</span> <span class="nv">svr</span><span class="p">)))))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">with-webdriver</span>
+</span><span class='line'>  <span class="s">&quot;setup selenium webdriver&quot;</span>
+</span><span class='line'>  <span class="p">[</span><span class="nv">specs</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">println </span><span class="s">&quot;starting webdriver&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">try</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">driver</span> <span class="p">(</span><span class="nf">driver/init-driver</span> <span class="p">{</span><span class="ss">:webdriver</span> <span class="p">(</span><span class="nf">phantomjs/driver</span><span class="p">)})]</span>
+</span><span class='line'>      <span class="p">(</span><span class="nf">t/implicit-wait</span> <span class="nv">driver</span> <span class="mi">3000</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nf">t/set-driver!</span> <span class="nv">driver</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nf">specs</span><span class="p">))</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">finally</span> <span class="p">(</span><span class="nf">t/quit</span><span class="p">))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then we&#8217;re ready to write our first spec! In
+<code>spec/my_project/core_spec.clj</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">ns </span><span class="nv">my-project.core-spec</span>
+</span><span class='line'>  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">clj-webdriver.taxi</span> <span class="ss">:as</span> <span class="nv">taxi</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">speclj.core</span> <span class="ss">:refer</span> <span class="ss">:all</span><span class="p">]</span>
+</span><span class='line'>            <span class="p">[</span><span class="nv">my-project.spec-utils</span> <span class="ss">:as</span> <span class="nv">utils</span><span class="p">]))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="nf">describe</span> <span class="s">&quot;the whole thing&quot;</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">before-all</span> <span class="p">(</span><span class="nf">utils/build-cljs!</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">around-all</span> <span class="p">[</span><span class="nv">specs</span><span class="p">]</span> <span class="p">(</span><span class="nf">utils/with-server</span> <span class="nv">specs</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">around-all</span> <span class="p">[</span><span class="nv">specs</span><span class="p">]</span> <span class="p">(</span><span class="nf">utils/with-webdriver</span> <span class="nv">specs</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">(</span><span class="nf">describe</span> <span class="s">&quot;index page&quot;</span>
+</span><span class='line'>    <span class="p">(</span><span class="nf">it</span> <span class="s">&quot;works&quot;</span>
+</span><span class='line'>      <span class="p">(</span><span class="nf">taxi/to</span> <span class="s">&quot;http://localhost:10555/&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nf">taxi/take-screenshot</span> <span class="ss">:file</span> <span class="s">&quot;./screenshot.png&quot;</span><span class="p">)</span>
+</span><span class='line'>      <span class="p">(</span><span class="nf">should-contain</span> <span class="s">&quot;hello!&quot;</span> <span class="p">(</span><span class="nf">taxi/text</span> <span class="s">&quot;h2&quot;</span><span class="p">)))))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Result</h2>
+
+<p>You can find an example of minimal setup here: <a href="https://github.com/Jell/cljs-autospec-example">https://github.com/Jell/cljs-autospec-example</a>.</p>
+
+<p>This follows closelly the instructions in this blogpost.</p>
+
+<h2>Extra tips</h2>
+
+<p>In our setup, we duplicate the compiler options several times: twice
+in the <code>project.clj</code> and once in <code>compiler.clj</code>.</p>
+
+<p>This can be tedious and error-prone if you have <code>:libs</code> or
+<code>:foreign-libs</code> in your config.</p>
+
+<p>To avoid this, you can move the common compiler options to a separate
+<code>config/compiler.clj</code> file that you then read in your <code>project.clj</code>
+and <code>compiler.clj</code> files.</p>
+
+<p>Do do that in the <code>project.clj</code>, use an unquoted expression:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">{</span><span class="ss">:compiler</span> <span class="o">~</span><span class="p">(</span><span class="nf">read-string</span> <span class="p">(</span><span class="nb">slurp </span><span class="s">&quot;config/compiler.clj&quot;</span><span class="p">))}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+  </div>
+
+  <div class="author-about">
+    <h3>Jean-Louis Giordano</h3>
+    <ul class="author-links">
+      
+      <li>Grumpy Developer</li>
+      
+
+      
+      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-04T14:09:00+02:00" pubdate data-updated="true">Sep 4<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/clojure/'>Clojure</a>, <a class='category' href='/blog/categories/clojurescript/'>ClojureScript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/" data-via="pugglepay" data-counturl="http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/" title="Previous Post: ClojureScript: from zero to production (Part 1)">&laquo; ClojureScript: from zero to production (Part 1)</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/">ClojureScript: From Zero to Production (Part 2) - Integration Testing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/">ClojureScript: from zero to production (Part 1)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome/">Where is my stack? (Part 2): GPG is awesome</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/04/16/the-whys-of-reviewing/">The whys of reviewing</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/09/where-is-my-stack-part-1-torquebox/">Where is my stack? (Part 1): Goodbye Torquebox</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/PugglePay">@PugglePay</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'PugglePay',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - dev -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'thepugglepaydevblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/';
+        var disqus_url = 'http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-35253707-2', 'pugglepay.com');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+</html>

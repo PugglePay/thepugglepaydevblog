@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ClojureScript | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojurescript/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-08-12T16:29:20+02:00</updated>
+  <updated>2015-09-04T20:28:32+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -12,6 +12,296 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ClojureScript: From Zero to Production (Part 2) - Integration Testing]]></title>
+    <link href="http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
+    <updated>2015-09-04T14:09:00+02:00</updated>
+    <id>http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
+    <content type="html"><![CDATA[<p>If you are building a single page ClojureScript app, you might be
+wondering how to write integration specs for it. By integration specs,
+I mean tests that are run in the browser against a build that is as
+close to the production app as possible.</p>
+
+<p>In this post, I'll show you our setup to get autorunning integration
+tests using <code>leiningen</code>, <code>clj-webdriver</code> and <code>speclj</code>.</p>
+
+<!-- more -->
+
+
+<h2>Goal</h2>
+
+<p>The goal is to get the integration tests to be run every time we save
+a file. Getting to run individual tests from the REPL was not a goal
+here, because we did not want to force the developpers to have any
+particular integration with their editors to get a good development
+experience.</p>
+
+<h2>Dependencies</h2>
+
+<p>We need to run the tests in a browser that is "driveable" by
+WebDriver. We chose <a href="https://github.com/ariya/phantomjs">phantomjs</a>
+because it's easy to install and fast enough.</p>
+
+<p>You can install it with <code>apt-get install phantomjs</code>, <code>brew install
+phantomjs</code>, or your favourite package manager.</p>
+
+<h2>Setting up your project.clj</h2>
+
+<p>You'll need a new build target in your <code>project.clj</code>.</p>
+
+<p>Note: this assumes you're using leiningen. If you're using boot, there
+might be a better way to do all this.</p>
+
+<p>Before adding integration tests, your <code>project.clj</code> should look something like this:</p>
+
+<p>```clojure
+(defproject my-project "0.1.0-SNAPSHOT"
+  :dependencies [[org.clojure/clojure "1.7.0"]</p>
+
+<pre><code>             [org.clojure/clojurescript "1.7.48"]]
+</code></pre>
+
+<p>  :plugins [[lein-cljsbuild "1.0.6"]]</p>
+
+<p>  :resource-paths ["release" "config"]</p>
+
+<p>  :target-path "target/%s/"</p>
+
+<p>  :cljsbuild {:builds</p>
+
+<pre><code>          {:main
+           {:source-paths ["src"]
+            :compiler {:main "my-project.core"
+                       :output-to "resources/public/out/main.js"
+                       :output-dir "resources/public/out"
+                       :optimizations :advanced}}}}
+</code></pre>
+
+<p>  :profiles
+  {:dev {:dependencies [[figwheel "0.3.8"]]</p>
+
+<pre><code>     :plugins [[lein-figwheel "0.3.8"]]
+
+     :clean-targets ^{:protect false} ["./target"
+                                       "./resources/public/out"]
+
+     :cljsbuild {:builds
+                 {:main
+                  {:figwheel {;; :websocket-host "192.168.1.65"
+                              :on-jsload "my-project.core/on-js-reload"}
+                   :compiler {:main "my-project.core"
+                              :output-to "resources/public/out/main.js"
+                              :output-dir "resources/public/out"
+                              :asset-path "out"
+                              :figwheel true
+                              :optimizations :none}}}}}})
+</code></pre>
+
+<p>```</p>
+
+<p>Let's add a new profile for integrations specs with all the extra
+dependencies we need:</p>
+
+<p>```clojure
+   :integration {:dependencies [[compojure "1.3.4"]</p>
+
+<pre><code>                            [ring/ring-jetty-adapter "1.4.0-RC1"]
+                            [clj-webdriver "0.6.1"]
+                            [speclj "3.3.1"]]
+
+             :plugins [[speclj "3.2.0"]]
+
+             :test-paths ["src" "spec"]}
+</code></pre>
+
+<p>```</p>
+
+<p>If we dissect the above, we're adding compojure and a ring jetty
+adapter so we can serve our compile app to a browser, <code>clj-webdriver</code>
+will be interacting with the browser and <code>speclj</code> will be used to run
+the test. <code>speclj</code> could be replace with any other testing library.</p>
+
+<p>We'll put our tests in a separate <code>spec</code> folder at the root of the
+project, that's why we add it to the test paths.</p>
+
+<h2>Setup the tests</h2>
+
+<p>To run the integration tests, and every time we save one of the source
+files, we need the following steps:</p>
+
+<ul>
+<li><p>Compile the ClojureScript app</p></li>
+<li><p>Start a webserver to serve the app</p></li>
+<li><p>Setup a WebDriver that can visit the app served by the webserver.</p></li>
+</ul>
+
+
+<p>Using <code>speclj</code>, this will mean adding a bunch of wrappers around our
+actual specs.</p>
+
+<p>Let's start with writting a webserver that will help us serve our app
+in <code>spec/my_project/spec_utils/server.clj</code>:</p>
+
+<p>```clojure
+(ns my.project.spec-utils.server
+  (:require [clojure.java.io :as io]</p>
+
+<pre><code>        [compojure.core :refer [routes GET defroutes]]
+        [compojure.route :refer [resources]]
+        [compojure.handler :refer [api]]
+        [ring.adapter.jetty :refer [run-jetty]]))
+</code></pre>
+
+<p>(defroutes http-handler
+  (resources "/" :root "resources/public"))</p>
+
+<p>(defn start [port]
+  (run-jetty http-handler {:port port :join? false}))
+```</p>
+
+<p>This is a very simple server that will server all static files from
+the <code>resources/public</code> folder.</p>
+
+<p>Next, let's add a compiler in <code>spec/my_project/spec_utils/compiler.clj</code>:</p>
+
+<p>```clojure
+(ns my-project.spec-utils.compiler
+  (:require [cljs.build.api]))</p>
+
+<p>(defn build-cljs!
+  "Builds cljs for integration specs"
+  []
+  (println "building cljs")
+  (cljs.build.api/build
+   "src"
+   {:main 'my-project.core</p>
+
+<pre><code>:output-to "resources/public/integration/main.js"
+:output-dir "resources/public/integration"
+:asset-path "integration"
+:optimizations :none
+:static-fns true ; for phantomjs/safari
+}))
+</code></pre>
+
+<p>```</p>
+
+<p>And finally, we'll need the phantomjs driver (<code>spec/my_project/spec_utils/phantomjs.clj</code>):</p>
+
+<p>```clojure
+(ns my-project.spec-utils.phantomjs
+  (:import [org.openqa.selenium.phantomjs PhantomJSDriver]</p>
+
+<pre><code>       [org.openqa.selenium.remote DesiredCapabilities]))
+</code></pre>
+
+<p>(defn driver []
+  (PhantomJSDriver.
+   (doto (DesiredCapabilities.)</p>
+
+<pre><code> (.setCapability "phantomjs.cli.args"
+                 (into-array String ["--ignore-ssl-errors=true"
+                                     "--webdriver-loglevel=warn"])))))
+</code></pre>
+
+<p>```</p>
+
+<p>There's a bit of Java incantations here to parametrize the
+driver. Webdriver is using the Java version of the Selenium webdriver,
+so if you want to configure this further you can look into Selenium's
+docs.</p>
+
+<p>Finally, let's create a single-entry utils file
+<code>spec/my_project/spec_utils.clj</code> to combine all of the above:</p>
+
+<p>```clojure
+(ns my-project.spec-utils
+  (:require [clj-webdriver.taxi :as t]</p>
+
+<pre><code>        [clj-webdriver.driver :as driver]
+        [my-project.spec-utils.server :as server]
+        [my-project.spec-utils.compiler :as compiler]
+        [my-project.spec-utils.phantomjs :as phantomjs]))
+</code></pre>
+
+<p>(def build-cljs! compiler/build-cljs!)</p>
+
+<p>(defn with-server
+  "Start a server to host the js files"
+  [specs]
+  (println "starting server")
+  (let [svr (server/start 10555)]</p>
+
+<pre><code>(try (specs) (finally (.stop svr)))))
+</code></pre>
+
+<p>(defn with-webdriver
+  "setup selenium webdriver"
+  [specs]
+  (println "starting webdriver")
+  (try</p>
+
+<pre><code>(let [driver (driver/init-driver {:webdriver (phantomjs/driver)})]
+  (t/implicit-wait driver 3000)
+  (t/set-driver! driver)
+  (specs))
+(finally (t/quit))))
+</code></pre>
+
+<p>```</p>
+
+<p>Then we're ready to write our first spec! In
+<code>spec/my_project/core_spec.clj</code>:</p>
+
+<p>```clojure
+(ns my-project.core-spec
+  (:require [clj-webdriver.taxi :as taxi]</p>
+
+<pre><code>        [speclj.core :refer :all]
+        [my-project.spec-utils :as utils]))
+</code></pre>
+
+<p>(describe "the whole thing"
+  (before-all (utils/build-cljs!))
+  (around-all [specs] (utils/with-server specs))
+  (around-all [specs] (utils/with-webdriver specs))</p>
+
+<p>  (describe "index page"</p>
+
+<pre><code>(it "works"
+  (taxi/to "http://localhost:10555/")
+  (taxi/take-screenshot :file "./screenshot.png")
+  (should-contain "hello!" (taxi/text "h2")))))
+</code></pre>
+
+<p>```</p>
+
+<h2>Result</h2>
+
+<p>You can find an example of minimal setup here: <a href="https://github.com/Jell/cljs-autospec-example">https://github.com/Jell/cljs-autospec-example</a>.</p>
+
+<p>This follows closelly the instructions in this blogpost.</p>
+
+<h2>Extra tips</h2>
+
+<p>In our setup, we duplicate the compiler options several times: twice
+in the <code>project.clj</code> and once in <code>compiler.clj</code>.</p>
+
+<p>This can be tedious and error-prone if you have <code>:libs</code> or
+<code>:foreign-libs</code> in your config.</p>
+
+<p>To avoid this, you can move the common compiler options to a separate
+<code>config/compiler.clj</code> file that you then read in your <code>project.clj</code>
+and <code>compiler.clj</code> files.</p>
+
+<p>Do do that in the <code>project.clj</code>, use an unquoted expression:</p>
+
+<p><code>clojure
+{:compiler ~(read-string (slurp "config/compiler.clj"))}
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ClojureScript: from zero to production (Part 1)]]></title>
