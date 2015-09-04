@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ClojureScript | PugglePay]]></title>
   <link href="http://devblog.pugglepay.com/blog/categories/clojurescript/atom.xml" rel="self"/>
   <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:31:32+02:00</updated>
+  <updated>2015-09-04T20:35:07+02:00</updated>
   <id>http://devblog.pugglepay.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -33,7 +33,7 @@ tests using <code>leiningen</code>, <code>clj-webdriver</code> and <code>speclj<
 
 <p>The goal is to get the integration tests to be run every time we save
 a file. Getting to run individual tests from the REPL was not a goal
-here, because we did not want to force the developpers to have any
+here, because we did not want to force the developers to have any
 particular integration with their editors to get a good development
 experience.</p>
 
