@@ -47,41 +47,47 @@ Before adding integration tests, your `project.clj` should look something like t
 
 ```clojure
 (defproject my-project "0.1.0-SNAPSHOT"
+  :description "FIXME: write this!"
+  :url "http://example.com/FIXME"
+  :license {:name "Eclipse Public License"
+            :url "http://www.eclipse.org/legal/epl-v10.html"}
+
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.48"]]
 
   :plugins [[lein-cljsbuild "1.0.6"]]
 
-  :resource-paths ["release" "config"]
+  :source-paths ["src"]
 
-  :target-path "target/%s/"
+  :resource-paths ["resources" "resources/public"]
 
-  :cljsbuild {:builds
-              {:main
-               {:source-paths ["src"]
-                :compiler {:main "my-project.core"
-                           :output-to "resources/public/out/main.js"
-                           :output-dir "resources/public/out"
-                           :optimizations :advanced}}}}
+  :cljsbuild
+  {:builds
+   {:main {:source-paths ["src"]
+           :compiler {:output-to "resources/public/out/my_project.js"
+                      :optimizations :advanced
+                      :main my-project.core
+                      :pretty-print false}}}}
 
   :profiles
-  {:dev {:dependencies [[figwheel "0.3.8"]]
-
+  {:dev {:dependencies [[figwheel "0.3.8"]
+                        [org.clojure/tools.nrepl "0.2.10"]]
          :plugins [[lein-figwheel "0.3.8"]]
 
-         :clean-targets ^{:protect false} ["./target"
-                                           "./resources/public/out"]
+         :cljsbuild
+         {:builds
+          {:main {:source-paths ["src"]
+                  :figwheel {:on-jsload "my-project.core/on-js-reload"}
+                  :compiler {:main my-project.core
+                             :optimization :none
+                             :asset-path "out"
+                             :output-to "resources/public/out/my_project.js"
+                             :output-dir "resources/public/out"
+                             :source-map-timestamp true}}}}
 
-         :cljsbuild {:builds
-                     {:main
-                      {:figwheel {;; :websocket-host "192.168.1.65"
-                                  :on-jsload "my-project.core/on-js-reload"}
-                       :compiler {:main "my-project.core"
-                                  :output-to "resources/public/out/main.js"
-                                  :output-dir "resources/public/out"
-                                  :asset-path "out"
-                                  :figwheel true
-                                  :optimizations :none}}}}}})
+         :figwheel {:css-dirs ["resources/public/css"]}
+
+         :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]}})
 ```
 
 Let's add a new profile for integrations specs with all the extra
