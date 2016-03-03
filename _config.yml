@@ -2,12 +2,12 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://devblog.pugglepay.com
-title: PugglePay
+url: http://devblog.zimpler.com
+title: Zimpler
 subtitle:  Dev Blog
 author: dev
 simple_search: http://google.com/search
-description: The PugglePay Dev Blog
+description: The Zimpler Dev Blog
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -17,9 +17,9 @@ date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
 subscribe_rss: /atom.xml
-subscribe_email: dev@pugglepay.com
+subscribe_email: dev@zimpler.com
 # RSS feeds can list your email address if you like
-email: dev@pugglepay.com
+email: dev@zimpler.com
 
 # ----------------------- #
 #    Jekyll & Plugins     #
@@ -64,7 +64,7 @@ github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user: pugglepay
+twitter_user: zimplers
 twitter_tweet_button: true
 
 # Google +1
@@ -85,7 +85,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name: thepugglepaydevblog
+disqus_short_name: thezimplerdevblog
 disqus_show_comment_count: false
 
 # Google Analytics
