@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Clojure | PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/blog/categories/clojure/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:40:35+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
+  <title><![CDATA[Category: Clojure | Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/blog/categories/clojure/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-03-04T08:34:38+01:00</updated>
+  <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
+    <email><![CDATA[dev@zimpler.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[ClojureScript: From Zero to Production (Part 2) - Integration Testing]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
     <updated>2015-09-04T14:09:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
+    <id>http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
     <content type="html"><![CDATA[<p>If you are building a single page ClojureScript app, you might be
 wondering how to write integration specs for it. By integration specs,
 I mean tests that are run in the browser against a build that is as
@@ -315,9 +315,9 @@ and <code>compiler.clj</code> files.</p>
   
   <entry>
     <title type="html"><![CDATA[ClojureScript: from zero to production (Part 1)]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
     <updated>2015-08-12T13:22:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
+    <id>http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
     <content type="html"><![CDATA[<p>A few weeks ago, we've released our first user-facing ClojureScript
 app. We developed it over the course of couple of months, starting
 from scratch.</p>
@@ -331,7 +331,7 @@ Ruby.</p>
 
 <h2>Motivation</h2>
 
-<p>PugglePay is a payment company, and we wanted to provide a page for
+<p>Zimpler is a payment company, and we wanted to provide a page for
 our users to see their unpaid bills and get an overview of the last
 few transactions.</p>
 

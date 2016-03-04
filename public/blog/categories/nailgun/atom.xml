@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: nailgun | PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/blog/categories/nailgun/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:40:35+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
+  <title><![CDATA[Category: nailgun | Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/blog/categories/nailgun/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-03-04T08:34:38+01:00</updated>
+  <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
+    <email><![CDATA[dev@zimpler.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
     <updated>2013-05-02T23:31:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
-    <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at PugglePay, and that
+    <id>http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
+    <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at Zimpler, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up
 induced by the JVM we started using spork and nailgun for running our
 tests.</p>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: remote | PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/blog/categories/remote/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:40:35+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
+  <title><![CDATA[Category: remote | Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/blog/categories/remote/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-03-04T08:34:38+01:00</updated>
+  <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
+    <email><![CDATA[dev@zimpler.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[Pair Programming in the Cloud]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
     <updated>2013-05-28T21:53:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
-    <content type="html"><![CDATA[<p>At PugglePay, we like to program in pairs. When everyone is working in
+    <id>http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
+    <content type="html"><![CDATA[<p>At Zimpler, we like to program in pairs. When everyone is working in
 the same office, that's pretty easy: we just share a computer, and use
 whatever text editor the owner of the computer has (in our case
 Emacs, Vim or Sublime Text 2).</p>
@@ -115,7 +115,7 @@ port forwarding when we want to run <code>rails server</code>.</p>
 ServerAliveInterval 60</p>
 
 <p>Host pp
-  HostName pair-programming.pugglepay.net.
+  HostName pair-programming.zimpler.net.
   User pair
   ForwardAgent yes
   LocalForward 3000 127.0.0.1:3000</p>

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:40:35+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
+  <title><![CDATA[Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-03-04T08:34:38+01:00</updated>
+  <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
+    <email><![CDATA[dev@zimpler.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[ClojureScript: From Zero to Production (Part 2) - Integration Testing]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
     <updated>2015-09-04T14:09:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
+    <id>http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
     <content type="html"><![CDATA[<p>If you are building a single page ClojureScript app, you might be
 wondering how to write integration specs for it. By integration specs,
 I mean tests that are run in the browser against a build that is as
@@ -408,7 +408,7 @@ and <code>compiler.clj</code> files.</p>
 
 <div class='octopress-authorbox'>
   <div class="author-pic">
-    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
   </div>
 
   <div class="author-about">
@@ -419,7 +419,7 @@ and <code>compiler.clj</code> files.</p>
       
 
       
-      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
       
 
       
@@ -436,9 +436,9 @@ and <code>compiler.clj</code> files.</p>
   
   <entry>
     <title type="html"><![CDATA[ClojureScript: from zero to production (Part 1)]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
     <updated>2015-08-12T13:22:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
+    <id>http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
     <content type="html"><![CDATA[<p>A few weeks ago, we&#8217;ve released our first user-facing ClojureScript
 app. We developed it over the course of couple of months, starting
 from scratch.</p>
@@ -452,7 +452,7 @@ Ruby.</p>
 
 <h2>Motivation</h2>
 
-<p>PugglePay is a payment company, and we wanted to provide a page for
+<p>Zimpler is a payment company, and we wanted to provide a page for
 our users to see their unpaid bills and get an overview of the last
 few transactions.</p>
 
@@ -578,7 +578,7 @@ a good understanding of its inner workings, and is satisfied with the
 result. All in all, a pretty good experience.</p>
 <div class='octopress-authorbox'>
   <div class="author-pic">
-    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
   </div>
 
   <div class="author-about">
@@ -589,7 +589,7 @@ result. All in all, a pretty good experience.</p>
       
 
       
-      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
       
 
       
@@ -606,10 +606,10 @@ result. All in all, a pretty good experience.</p>
   
   <entry>
     <title type="html"><![CDATA[Where is my stack? (Part 2): GPG is awesome]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome/"/>
     <updated>2015-08-11T13:31:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome</id>
-    <content type="html"><![CDATA[<p>Storing and sharing secrets is tricky. At PugglePay we used to do it
+    <id>http://devblog.zimpler.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome</id>
+    <content type="html"><![CDATA[<p>Storing and sharing secrets is tricky. At Zimpler we used to do it
 by having a password encrypted file, and sharing that password with
 all the devs.</p>
 
@@ -687,7 +687,7 @@ we want to communicate over an insecure channel (like in a slack forum
 or in an email).</p>
 <div class='octopress-authorbox'>
   <div class="author-pic">
-    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
   </div>
 
   <div class="author-about">
@@ -698,7 +698,7 @@ or in an email).</p>
       
 
       
-      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
       
 
       
@@ -715,9 +715,9 @@ or in an email).</p>
   
   <entry>
     <title type="html"><![CDATA[The whys of reviewing]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing/"/>
     <updated>2015-04-16T15:42:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing</id>
+    <id>http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing</id>
     <content type="html"><![CDATA[<p>The other week we talked about reviews, why do we do them, what do we look at,
 and what do we get out of it.</p>
 
@@ -877,9 +877,9 @@ blog post.</p>
   
   <entry>
     <title type="html"><![CDATA[Where is my stack? (Part 1): Goodbye Torquebox]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox/"/>
     <updated>2013-10-09T13:30:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox</id>
+    <id>http://devblog.zimpler.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox</id>
     <content type="html"><![CDATA[<p>So this is how it ends.</p>
 
 <p>This week was the last week we ran TorqueBox in production. We&#8217;ve had
@@ -892,9 +892,9 @@ and the JVM.</p>
 <!-- more -->
 
 
-<h2>Previously on &#8220;PugglePay&#8221;</h2>
+<h2>Previously on &#8220;Zimpler&#8221;</h2>
 
-<p>In an <a href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">earlier post</a>, I discussed some problem we had with TorqueBox from the very
+<p>In an <a href="http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/">earlier post</a>, I discussed some problem we had with TorqueBox from the very
 beginning, but that we thought could overcome:</p>
 
 <ul>
@@ -942,14 +942,14 @@ system administration were so painful to use.</p>
 <p>So that&#8217;s how it all began: with looking for a replacement for our
 own mixture of ruby scripts and Chef recipes&#8230;</p>
 
-<h2>On the next episode of PugglePay Development</h2>
+<h2>On the next episode of Zimpler Development</h2>
 
 <p>The team learns new encryption techniques (&#8220;We should totally use
 GPG!&#8221;), discover new tools (&#8220;Ansible all the things!&#8221;) and write some
 libraries (&#8220;Mr. F~~&#8221;).</p>
 <div class='octopress-authorbox'>
   <div class="author-pic">
-    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
   </div>
 
   <div class="author-about">
@@ -960,7 +960,7 @@ libraries (&#8220;Mr. F~~&#8221;).</p>
       
 
       
-      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
       
 
       
@@ -977,10 +977,10 @@ libraries (&#8220;Mr. F~~&#8221;).</p>
   
   <entry>
     <title type="html"><![CDATA[Pair Programming in the Cloud]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
     <updated>2013-05-28T21:53:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
-    <content type="html"><![CDATA[<p>At PugglePay, we like to program in pairs. When everyone is working in
+    <id>http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
+    <content type="html"><![CDATA[<p>At Zimpler, we like to program in pairs. When everyone is working in
 the same office, that&#8217;s pretty easy: we just share a computer, and use
 whatever text editor the owner of the computer has (in our case
 Emacs, Vim or Sublime Text 2).</p>
@@ -1083,7 +1083,7 @@ port forwarding when we want to run <code>rails server</code>.</p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ServerAliveInterval 60
 </span><span class='line'>
 </span><span class='line'>Host pp
-</span><span class='line'>  HostName pair-programming.pugglepay.net.
+</span><span class='line'>  HostName pair-programming.zimpler.net.
 </span><span class='line'>  User pair
 </span><span class='line'>  ForwardAgent yes
 </span><span class='line'>  LocalForward 3000 127.0.0.1:3000
@@ -1160,7 +1160,7 @@ improvement, but remote pair programming feels pretty much like local
 pair programming (even arguably better).</p>
 <div class='octopress-authorbox'>
   <div class="author-pic">
-    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
   </div>
 
   <div class="author-about">
@@ -1171,7 +1171,7 @@ pair programming (even arguably better).</p>
       
 
       
-      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
       
 
       
@@ -1188,14 +1188,14 @@ pair programming (even arguably better).</p>
   
   <entry>
     <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
     <updated>2013-05-03T10:42:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
+    <id>http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
     <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent
 actually producing value.</p>
 
-<p>At PugglePay, we try to be agile and always look at the trade-offs
+<p>At Zimpler, we try to be agile and always look at the trade-offs
 that are involved in every decision we make. So as we started
 developing our product, we decided to go with the easy and fast track,
 and that meant Amazon, Rails and MySQL.</p>
@@ -1346,7 +1346,7 @@ acquire knowledge from others. So if you have some experience with
 TorqueBox, please get in touch!</p>
 <div class='octopress-authorbox'>
   <div class="author-pic">
-    <img src="http://www.gravatar.com/avatar/c7a730fdb6c64f65ff18a5e74e60b4df" alt="Jean-Louis Giordano" />
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
   </div>
 
   <div class="author-about">
@@ -1357,7 +1357,7 @@ TorqueBox, please get in touch!</p>
       
 
       
-      <li><a href="mailto: ">jean-louis@pugglepay.com</a></li>
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
       
 
       
@@ -1374,10 +1374,10 @@ TorqueBox, please get in touch!</p>
   
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
     <updated>2013-05-02T23:31:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
-    <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at PugglePay, and that
+    <id>http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
+    <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at Zimpler, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up
 induced by the JVM we started using spork and nailgun for running our
 tests.</p>
@@ -1432,7 +1432,7 @@ you have some errors.</p>
       
 
       
-      <li><a href="mailto: ">patrik@pugglepay.com</a></li>
+      <li><a href="mailto: ">patrik@zimpler.com</a></li>
       
 
       

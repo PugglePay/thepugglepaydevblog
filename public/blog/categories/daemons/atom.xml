@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: daemons | PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/blog/categories/daemons/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:40:35+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
+  <title><![CDATA[Category: daemons | Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/blog/categories/daemons/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-03-04T08:34:38+01:00</updated>
+  <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
+    <email><![CDATA[dev@zimpler.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
+    <link href="http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
     <updated>2013-05-03T10:42:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
+    <id>http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
     <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent
 actually producing value.</p>
 
-<p>At PugglePay, we try to be agile and always look at the trade-offs
+<p>At Zimpler, we try to be agile and always look at the trade-offs
 that are involved in every decision we make. So as we started
 developing our product, we decided to go with the easy and fast track,
 and that meant Amazon, Rails and MySQL.</p>

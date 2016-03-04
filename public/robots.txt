@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://devblog.pugglepay.com/sitemap.xml 
+Sitemap: http://devblog.zimpler.com/sitemap.xml 

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: process | PugglePay]]></title>
-  <link href="http://devblog.pugglepay.com/blog/categories/process/atom.xml" rel="self"/>
-  <link href="http://devblog.pugglepay.com/"/>
-  <updated>2015-09-04T20:40:35+02:00</updated>
-  <id>http://devblog.pugglepay.com/</id>
+  <title><![CDATA[Category: process | Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/blog/categories/process/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-03-04T08:34:38+01:00</updated>
+  <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
-    <email><![CDATA[dev@pugglepay.com]]></email>
+    <email><![CDATA[dev@zimpler.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
   
   <entry>
     <title type="html"><![CDATA[The whys of reviewing]]></title>
-    <link href="http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing/"/>
+    <link href="http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing/"/>
     <updated>2015-04-16T15:42:00+02:00</updated>
-    <id>http://devblog.pugglepay.com/blog/2015/04/16/the-whys-of-reviewing</id>
+    <id>http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing</id>
     <content type="html"><![CDATA[<p>The other week we talked about reviews, why do we do them, what do we look at,
 and what do we get out of it.</p>
 
