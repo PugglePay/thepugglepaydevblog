@@ -24,7 +24,7 @@ and the JVM.
 
 <!-- more -->
 
-## Previously on "PugglePay"
+## Previously on "Zimpler"
 
 In an [earlier post](/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/), I discussed some problem we had with TorqueBox from the very
 beginning, but that we thought could overcome:
@@ -68,7 +68,7 @@ system administration were so painful to use.
 So that's how it all began: with looking for a replacement for our
 own mixture of ruby scripts and Chef recipes...
 
-## On the next episode of PugglePay Development
+## On the next episode of Zimpler Development
 
 The team learns new encryption techniques ("We should totally use
 GPG!"), discover new tools ("Ansible all the things!") and write some

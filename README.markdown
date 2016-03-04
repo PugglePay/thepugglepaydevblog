@@ -1,4 +1,4 @@
-# The PugglePay dev blog
+# The Zimpler dev blog
 
 ## Run locally:
 

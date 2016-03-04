@@ -1,7 +1,7 @@
 jean-louis:
     name: Jean-Louis Giordano
     twitter: jellismymind
-    email: jean-louis@pugglepay.com
+    email: jean-louis@zimpler.com
     title: "Grumpy Developer"
 
 patrik:
@@ -9,12 +9,12 @@ patrik:
     title: "System Developer"
     twitter: patrik_karlin
     gravatar: https://secure.gravatar.com/avatar/d7e5aaa6813cde9cbd0005a2cf2b56f1?d=https://d3levm2kxut31z.cloudfront.net/assets/blank-mugshot-112e2e92d74b7344b8be3630bbccc5da.png
-    email: patrik@pugglepay.com
+    email: patrik@zimpler.com
 
 magnus:
   name: Magnus Rex
   title: CTO
-  email: magnus@pugglepay.com
+  email: magnus@zimpler.com
 
 gustaf:
   name: Gustaf
@@ -22,5 +22,5 @@ gustaf:
   email: ""
 
 dev:
-    name: The Puggles
-    twitter: pugglepay
+    name: The Zimplers
+    twitter: zimplers

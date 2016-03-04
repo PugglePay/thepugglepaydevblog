@@ -8,7 +8,7 @@ categories:
 author: jean-louis
 ---
 
-Storing and sharing secrets is tricky. At PugglePay we used to do it
+Storing and sharing secrets is tricky. At Zimpler we used to do it
 by having a password encrypted file, and sharing that password with
 all the devs.
 

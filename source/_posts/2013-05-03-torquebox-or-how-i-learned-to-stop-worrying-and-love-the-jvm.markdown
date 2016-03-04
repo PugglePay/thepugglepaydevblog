@@ -18,7 +18,7 @@ So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent
 actually producing value.
 
-At PugglePay, we try to be agile and always look at the trade-offs
+At Zimpler, we try to be agile and always look at the trade-offs
 that are involved in every decision we make. So as we started
 developing our product, we decided to go with the easy and fast track,
 and that meant Amazon, Rails and MySQL.

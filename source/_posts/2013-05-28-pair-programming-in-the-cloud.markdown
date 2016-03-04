@@ -13,7 +13,7 @@ categories:
 
 ---
 
-At PugglePay, we like to program in pairs. When everyone is working in
+At Zimpler, we like to program in pairs. When everyone is working in
 the same office, that's pretty easy: we just share a computer, and use
 whatever text editor the owner of the computer has (in our case
 Emacs, Vim or Sublime Text 2).
@@ -95,7 +95,7 @@ To do that automatically, we just configured a host in our local
 ServerAliveInterval 60
 
 Host pp
-  HostName pair-programming.pugglepay.net.
+  HostName pair-programming.zimpler.net.
   User pair
   ForwardAgent yes
   LocalForward 3000 127.0.0.1:3000

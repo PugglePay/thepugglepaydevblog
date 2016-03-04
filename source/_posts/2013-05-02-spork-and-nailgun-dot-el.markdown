@@ -7,7 +7,7 @@ categories: emacs lisp spork nailgun
 author: patrik
 ---
 
-We recently made the shift to TorqueBox here at PugglePay, and that
+We recently made the shift to TorqueBox here at Zimpler, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up
 induced by the JVM we started using spork and nailgun for running our
 tests.

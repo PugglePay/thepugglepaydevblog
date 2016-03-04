@@ -22,7 +22,7 @@ Ruby.
 
 ## Motivation
 
-PugglePay is a payment company, and we wanted to provide a page for
+Zimpler is a payment company, and we wanted to provide a page for
 our users to see their unpaid bills and get an overview of the last
 few transactions.
 
