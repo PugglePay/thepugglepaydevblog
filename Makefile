@@ -8,6 +8,6 @@ deploy:
 	git add -f ./public
 	git commit -m "regenerated website"
 	git push origin deploy
-	heroku git:remote -a thepugglepaydevblog
+	heroku git:remote -a thezimplerdevblog
 	git push heroku deploy:master
 	git checkout master
