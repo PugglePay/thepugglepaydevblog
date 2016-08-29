@@ -27,7 +27,7 @@ bit easier. With the answer to all technical problems!
 
 <!-- more -->
 
-###[An Emacs Plugin](https://github.com/PugglePay/spork-and-nailgun.el)
+###[An Emacs Plugin](https://github.com/Zimpler/spork-and-nailgun.el)
 
 So install it (with [el-get](https://github.com/dimitri/el-get) perhaps) and bind a key (ex `C-c C-l`) to 'sang-start-all and run it.
 
@@ -44,4 +44,4 @@ you have some errors.
 
 Now your ready to run your tests with [`C-c , v`](https://github.com/pezra/rspec-mode)
 
-This plugin works well for our workflow so [try it out](https://github.com/PugglePay/spork-and-nailgun.el) yourself.
+This plugin works well for our workflow so [try it out](https://github.com/Zimpler/spork-and-nailgun.el) yourself.
