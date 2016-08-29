@@ -64,7 +64,7 @@ That's actually pretty easy: just encrypt a file containing all the
 secrets using the public key of all your devs in a format that is
 easily parsable in your language of choice.
 
-We wrote a small library to do that in ruby: https://github.com/PugglePay/mrf
+We wrote a small library to do that in ruby: https://github.com/Zimpler/mrf
 
 ## How to edit a GPG file?
 
