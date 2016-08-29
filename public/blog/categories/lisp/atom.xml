@@ -4,7 +4,7 @@
   <title><![CDATA[Category: lisp | Zimpler]]></title>
   <link href="http://devblog.zimpler.com/blog/categories/lisp/atom.xml" rel="self"/>
   <link href="http://devblog.zimpler.com/"/>
-  <updated>2016-03-04T08:54:47+01:00</updated>
+  <updated>2016-08-29T16:34:27+02:00</updated>
   <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -39,7 +39,7 @@ bit easier. With the answer to all technical problems!</p>
 <!-- more -->
 
 
-<h3><a href="https://github.com/PugglePay/spork-and-nailgun.el">An Emacs Plugin</a></h3>
+<h3><a href="https://github.com/Zimpler/spork-and-nailgun.el">An Emacs Plugin</a></h3>
 
 <p>So install it (with <a href="https://github.com/dimitri/el-get">el-get</a> perhaps) and bind a key (ex <code>C-c C-l</code>) to 'sang-start-all and run it.</p>
 
@@ -59,7 +59,7 @@ you have some errors.</p>
 
 <p>Now your ready to run your tests with <a href="https://github.com/pezra/rspec-mode"><code>C-c , v</code></a></p>
 
-<p>This plugin works well for our workflow so <a href="https://github.com/PugglePay/spork-and-nailgun.el">try it out</a> yourself.</p>
+<p>This plugin works well for our workflow so <a href="https://github.com/Zimpler/spork-and-nailgun.el">try it out</a> yourself.</p>
 ]]></content>
   </entry>
   
