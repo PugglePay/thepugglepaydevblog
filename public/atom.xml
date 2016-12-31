@@ -4,7 +4,7 @@
   <title><![CDATA[Zimpler]]></title>
   <link href="http://devblog.zimpler.com/atom.xml" rel="self"/>
   <link href="http://devblog.zimpler.com/"/>
-  <updated>2016-08-29T16:34:27+02:00</updated>
+  <updated>2016-12-31T09:44:05+00:00</updated>
   <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -14,9 +14,184 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Docker on Mac OSX in 2016]]></title>
+    <link href="http://devblog.zimpler.com/blog/2016/12/30/docker-on-mac-osx/"/>
+    <updated>2016-12-30T18:23:00+00:00</updated>
+    <id>http://devblog.zimpler.com/blog/2016/12/30/docker-on-mac-osx</id>
+    <content type="html"><![CDATA[<p>TL;DR: Docker on Mac is viable and seems like it&#8217;ll soon be great.</p>
+
+<!-- more -->
+
+
+<h2>Why Docker?</h2>
+
+<p>When hiring a new developer at Zimpler, we aim at making them deploy
+something to production on their first day. That means we need to be
+able to setup a Dev machine with all its dependencies within half a
+day while allowing that person to work in an environment they are
+familiar with (Operating System, Text Editor&#8230;).</p>
+
+<p>In order to achieve that, we currently use Vagrant images for each
+project to minimize the global dependencies on our computers while
+keeping a uniform Dev environment close to our production setup.</p>
+
+<p>This allows us to take any laptop from zero to ready to commit within
+a couple of hours.</p>
+
+<p>This works great with a few downsides:</p>
+
+<ul>
+<li><p>Memory footprint</p></li>
+<li><p>File System Events propagation inside the machine (for things like auto-tests)</p></li>
+<li><p>Clunky to setup, provision and share images.</p></li>
+</ul>
+
+
+<p>As an alternative, we&#8217;ve been looking at using docker for our Dev
+environment. Our product team (developers and designers) are using
+both Mac and Linux machines, therefor making this work flawlessly on
+both was a requirement.</p>
+
+<h2>First attempt: Docker for Mac</h2>
+
+<p>So we got started, and went straight to trying Docker for Mac
+(<a href="">https://docs.docker.com/docker-for-mac/</a>). With just a brew install,
+it works! Out of the box. That&#8217;s super nice!</p>
+
+<p>Sadly, there is one major issue: the current implementation of the
+docker File System abstraction <code>osxfs</code> used by Docker for Mac is slow
+and CPU intensive. Really badly slow. On one of our projects (with
+about 30k lines of code that need to listen to file changes), the
+compile time went from 2 seconds on our Vagrant setup with shared NFS
+volume to 1 minute (!) in docker.</p>
+
+<p>There is a performance bug reported on their bug tracker
+(<a href="">https://github.com/docker/for-mac/issues/77</a>), and apparently work
+is underway to improve this. Hopefully, we can return to Docker for
+Mac in a few month.</p>
+
+<p>Note that this is probably not an issue for everyone: perhaps
+performance on smaller projects or requiring less file system IO is
+acceptable. I would recommend trying that approach first.</p>
+
+<h3>Verdict: Docker for Mac</h3>
+
+<p>Pros:</p>
+
+<ul>
+<li><p>Works out of the box</p></li>
+<li><p>Minimal dependencies and setup</p></li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li>unusably slow file system for our case</li>
+</ul>
+
+
+<h2>Second attempt: Docker Machine through Dinghy</h2>
+
+<p>We were not about to give up so easily, especially since the previous
+attempt took us a total of 10 minutes (really looking forward to it
+being usable!).</p>
+
+<p>So the next attempt was to try to run a docker machine with a mounted
+NFS volume (we knew that performances of sharing a volume between a VM
+and the host to be good).</p>
+
+<p>After some research, we thought the best approach would be to use
+dinghy (<a href="">https://github.com/codekitchen/dinghy</a>).</p>
+
+<p>That was fairly easy to setup (a simple brew install away), although
+it is not as transparent as Docker for Mac and requires VirtualBox as
+an extra dependency.</p>
+
+<p>Well, turns out that works very well, and we managed to get things
+working in an afternoon on one of our ClojureScript project.</p>
+
+<p>But then, we tried to dockerize one of Rails projects, where we use
+private gems stored on Github. And in order to install the
+dependencies needed by the app, we had to get SSH agent forwarding
+working inside the container.</p>
+
+<p>Sad face: because of dinghy, this is actually quite hard because we
+need to first forward the SSH agent to the docker-machine VM, then
+mount the SSH agent socket from the VM to the container as a volume.</p>
+
+<p>So the way we solved that is to write a custom <code>dinghy-connect</code> helper
+that makes sure the docker-machine is running and that SSH forwarding
+from the host to the docker machine is setup, then exports an
+environment variable to the path of the SSH agent socket inside the
+VM.</p>
+
+<p>The end result can be seen in that gist:</p>
+
+<p><a href="">https://gist.github.com/Jell/546244f4fcb6b4596d3f66386e0d8102</a></p>
+
+<p>After using this setup for a week, it feels actually quite nice! And
+when compared to our previous setup with Vagrant, even including the
+needed SSH-forwarding &#8220;hack&#8221;, it&#8217;s on par for Mac usage.</p>
+
+<h3>Verdict</h3>
+
+<p>Pros:</p>
+
+<ul>
+<li>it works!</li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li><p>More dependencies</p></li>
+<li><p>hack needed for SSH-forwarding</p></li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>Docker for Mac looks super promising. When the performance problems
+are fixed, it&#8217;s going to be an excellent experience. For now, using
+docker-machine through dinghy with some manual patching is still quite
+good.</p>
+
+<p>I will personally be using Docker for my Dev environment for the
+foreseeable future.</p>
+<div class='octopress-authorbox'>
+  <div class="author-pic">
+    <img src="http://www.gravatar.com/avatar/afd76890e65cdcda81cccb6e6b89eb0c" alt="Jean-Louis Giordano" />
+  </div>
+
+  <div class="author-about">
+    <h3>Jean-Louis Giordano</h3>
+    <ul class="author-links">
+      
+      <li>Grumpy Developer</li>
+      
+
+      
+      <li><a href="mailto: ">jean-louis@zimpler.com</a></li>
+      
+
+      
+      <li>
+        <a href="https://twitter.com/jellismymind" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @jellismymind</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[ClojureScript: From Zero to Production (Part 2) - Integration Testing]]></title>
     <link href="http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
-    <updated>2015-09-04T14:09:00+02:00</updated>
+    <updated>2015-09-04T14:09:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
     <content type="html"><![CDATA[<p>If you are building a single page ClojureScript app, you might be
 wondering how to write integration specs for it. By integration specs,
@@ -437,7 +612,7 @@ and <code>compiler.clj</code> files.</p>
   <entry>
     <title type="html"><![CDATA[ClojureScript: from zero to production (Part 1)]]></title>
     <link href="http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
-    <updated>2015-08-12T13:22:00+02:00</updated>
+    <updated>2015-08-12T13:22:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
     <content type="html"><![CDATA[<p>A few weeks ago, we&#8217;ve released our first user-facing ClojureScript
 app. We developed it over the course of couple of months, starting
@@ -607,7 +782,7 @@ result. All in all, a pretty good experience.</p>
   <entry>
     <title type="html"><![CDATA[Where is my stack? (Part 2): GPG is awesome]]></title>
     <link href="http://devblog.zimpler.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome/"/>
-    <updated>2015-08-11T13:31:00+02:00</updated>
+    <updated>2015-08-11T13:31:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome</id>
     <content type="html"><![CDATA[<p>Storing and sharing secrets is tricky. At Zimpler we used to do it
 by having a password encrypted file, and sharing that password with
@@ -716,7 +891,7 @@ or in an email).</p>
   <entry>
     <title type="html"><![CDATA[The whys of reviewing]]></title>
     <link href="http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing/"/>
-    <updated>2015-04-16T15:42:00+02:00</updated>
+    <updated>2015-04-16T15:42:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing</id>
     <content type="html"><![CDATA[<p>The other week we talked about reviews, why do we do them, what do we look at,
 and what do we get out of it.</p>
@@ -878,7 +1053,7 @@ blog post.</p>
   <entry>
     <title type="html"><![CDATA[Where is my stack? (Part 1): Goodbye Torquebox]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox/"/>
-    <updated>2013-10-09T13:30:00+02:00</updated>
+    <updated>2013-10-09T13:30:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox</id>
     <content type="html"><![CDATA[<p>So this is how it ends.</p>
 
@@ -978,7 +1153,7 @@ libraries (&#8220;Mr. F~~&#8221;).</p>
   <entry>
     <title type="html"><![CDATA[Pair Programming in the Cloud]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
-    <updated>2013-05-28T21:53:00+02:00</updated>
+    <updated>2013-05-28T21:53:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
     <content type="html"><![CDATA[<p>At Zimpler, we like to program in pairs. When everyone is working in
 the same office, that&#8217;s pretty easy: we just share a computer, and use
@@ -1189,7 +1364,7 @@ pair programming (even arguably better).</p>
   <entry>
     <title type="html"><![CDATA[Torquebox or: How I Learned to Stop Worrying and Love the JVM]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/"/>
-    <updated>2013-05-03T10:42:00+02:00</updated>
+    <updated>2013-05-03T10:42:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm</id>
     <content type="html"><![CDATA[<p>So here is the thing. As a DevOp, SysAdmin is a PITA. Time spent
 tweaking the servers to add such or such service is time not spent
@@ -1375,7 +1550,7 @@ TorqueBox, please get in touch!</p>
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
+    <updated>2013-05-02T23:31:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
     <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at Zimpler, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up

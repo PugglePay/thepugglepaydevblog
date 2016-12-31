@@ -4,7 +4,7 @@
   <title><![CDATA[Category: emacs | Zimpler]]></title>
   <link href="http://devblog.zimpler.com/blog/categories/emacs/atom.xml" rel="self"/>
   <link href="http://devblog.zimpler.com/"/>
-  <updated>2016-08-29T16:34:27+02:00</updated>
+  <updated>2016-12-31T09:44:05+00:00</updated>
   <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Pair Programming in the Cloud]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud/"/>
-    <updated>2013-05-28T21:53:00+02:00</updated>
+    <updated>2013-05-28T21:53:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud</id>
     <content type="html"><![CDATA[<p>At Zimpler, we like to program in pairs. When everyone is working in
 the same office, that's pretty easy: we just share a computer, and use
@@ -193,7 +193,7 @@ pair programming (even arguably better).</p>
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
+    <updated>2013-05-02T23:31:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
     <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at Zimpler, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up

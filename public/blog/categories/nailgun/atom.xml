@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nailgun | Zimpler]]></title>
   <link href="http://devblog.zimpler.com/blog/categories/nailgun/atom.xml" rel="self"/>
   <link href="http://devblog.zimpler.com/"/>
-  <updated>2016-08-29T16:34:27+02:00</updated>
+  <updated>2016-12-31T09:44:05+00:00</updated>
   <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[spork_and_nailgun.el]]></title>
     <link href="http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el/"/>
-    <updated>2013-05-02T23:31:00+02:00</updated>
+    <updated>2013-05-02T23:31:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el</id>
     <content type="html"><![CDATA[<p>We recently made the shift to TorqueBox here at Zimpler, and that
 meant moving from MRI to JRuby. I order to cope with the slow start-up

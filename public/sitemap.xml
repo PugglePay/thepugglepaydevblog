@@ -2,54 +2,58 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://devblog.zimpler.com/blog/2013/05/02/spork-and-nailgun-dot-el/</loc>
-        <lastmod>2016-08-29T16:34:25+02:00</lastmod>
+        <lastmod>2016-08-29T14:34:25+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://devblog.zimpler.com/blog/2013/05/03/torquebox-or-how-i-learned-to-stop-worrying-and-love-the-jvm/
         </loc>
-        <lastmod>2016-03-04T08:34:35+01:00</lastmod>
+        <lastmod>2016-03-04T07:34:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://devblog.zimpler.com/blog/2013/05/28/pair-programming-in-the-cloud/</loc>
-        <lastmod>2016-03-04T08:34:35+01:00</lastmod>
+        <lastmod>2016-03-04T07:34:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://devblog.zimpler.com/blog/2013/10/09/where-is-my-stack-part-1-torquebox/</loc>
-        <lastmod>2016-03-04T08:34:35+01:00</lastmod>
+        <lastmod>2016-03-04T07:34:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://devblog.zimpler.com/blog/2015/04/16/the-whys-of-reviewing/</loc>
-        <lastmod>2016-03-04T08:34:35+01:00</lastmod>
+        <lastmod>2016-03-04T07:34:35+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://devblog.zimpler.com/blog/2015/08/11/where-is-my-stack-part-2-gpg-is-awesome/
         </loc>
-        <lastmod>2016-08-29T16:34:25+02:00</lastmod>
+        <lastmod>2016-08-29T14:34:25+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/
         </loc>
-        <lastmod>2016-03-04T08:34:35+01:00</lastmod>
+        <lastmod>2016-03-04T07:34:35+00:00</lastmod>
     </url>
     <url>
         <loc>
             http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/
         </loc>
-        <lastmod>2016-03-04T08:34:35+01:00</lastmod>
+        <lastmod>2016-03-04T07:34:35+00:00</lastmod>
+    </url>
+    <url>
+        <loc>http://devblog.zimpler.com/blog/2016/12/30/docker-on-mac-osx/</loc>
+        <lastmod>2016-12-31T09:43:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://devblog.zimpler.com/blog/archives/</loc>
-        <lastmod>2016-08-29T16:34:25+02:00</lastmod>
+        <lastmod>2016-12-31T09:43:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://devblog.zimpler.com/</loc>
-        <lastmod>2016-08-29T16:34:25+02:00</lastmod>
+        <lastmod>2016-12-31T09:43:35+00:00</lastmod>
     </url>
     <url>
         <loc>http://devblog.zimpler.com/robots.txt</loc>
-        <lastmod>2015-08-12T09:56:36+02:00</lastmod>
+        <lastmod>2015-08-12T07:56:36+00:00</lastmod>
     </url>
 </urlset>

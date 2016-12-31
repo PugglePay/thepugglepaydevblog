@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Clojure | Zimpler]]></title>
   <link href="http://devblog.zimpler.com/blog/categories/clojure/atom.xml" rel="self"/>
   <link href="http://devblog.zimpler.com/"/>
-  <updated>2016-08-29T16:34:27+02:00</updated>
+  <updated>2016-12-31T09:44:05+00:00</updated>
   <id>http://devblog.zimpler.com/</id>
   <author>
     <name><![CDATA[dev]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[ClojureScript: From Zero to Production (Part 2) - Integration Testing]]></title>
     <link href="http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing/"/>
-    <updated>2015-09-04T14:09:00+02:00</updated>
+    <updated>2015-09-04T14:09:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2015/09/04/clojurescript-from-zero-to-production-part-2-integration-testing</id>
     <content type="html"><![CDATA[<p>If you are building a single page ClojureScript app, you might be
 wondering how to write integration specs for it. By integration specs,
@@ -316,7 +316,7 @@ and <code>compiler.clj</code> files.</p>
   <entry>
     <title type="html"><![CDATA[ClojureScript: from zero to production (Part 1)]]></title>
     <link href="http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1/"/>
-    <updated>2015-08-12T13:22:00+02:00</updated>
+    <updated>2015-08-12T13:22:00+00:00</updated>
     <id>http://devblog.zimpler.com/blog/2015/08/12/clojurescript-from-zero-to-production-part-1</id>
     <content type="html"><![CDATA[<p>A few weeks ago, we've released our first user-facing ClojureScript
 app. We developed it over the course of couple of months, starting

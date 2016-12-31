@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: docker | Zimpler]]></title>
+  <link href="http://devblog.zimpler.com/blog/categories/docker/atom.xml" rel="self"/>
+  <link href="http://devblog.zimpler.com/"/>
+  <updated>2016-12-31T09:44:05+00:00</updated>
+  <id>http://devblog.zimpler.com/</id>
+  <author>
+    <name><![CDATA[dev]]></name>
+    <email><![CDATA[dev@zimpler.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Docker on Mac OSX in 2016]]></title>
+    <link href="http://devblog.zimpler.com/blog/2016/12/30/docker-on-mac-osx/"/>
+    <updated>2016-12-30T18:23:00+00:00</updated>
+    <id>http://devblog.zimpler.com/blog/2016/12/30/docker-on-mac-osx</id>
+    <content type="html"><![CDATA[<p>TL;DR: Docker on Mac is viable and seems like it'll soon be great.</p>
+
+<!-- more -->
+
+
+<h2>Why Docker?</h2>
+
+<p>When hiring a new developer at Zimpler, we aim at making them deploy
+something to production on their first day. That means we need to be
+able to setup a Dev machine with all its dependencies within half a
+day while allowing that person to work in an environment they are
+familiar with (Operating System, Text Editor...).</p>
+
+<p>In order to achieve that, we currently use Vagrant images for each
+project to minimize the global dependencies on our computers while
+keeping a uniform Dev environment close to our production setup.</p>
+
+<p>This allows us to take any laptop from zero to ready to commit within
+a couple of hours.</p>
+
+<p>This works great with a few downsides:</p>
+
+<ul>
+<li><p>Memory footprint</p></li>
+<li><p>File System Events propagation inside the machine (for things like auto-tests)</p></li>
+<li><p>Clunky to setup, provision and share images.</p></li>
+</ul>
+
+
+<p>As an alternative, we've been looking at using docker for our Dev
+environment. Our product team (developers and designers) are using
+both Mac and Linux machines, therefor making this work flawlessly on
+both was a requirement.</p>
+
+<h2>First attempt: Docker for Mac</h2>
+
+<p>So we got started, and went straight to trying Docker for Mac
+(<a href="">https://docs.docker.com/docker-for-mac/</a>). With just a brew install,
+it works! Out of the box. That's super nice!</p>
+
+<p>Sadly, there is one major issue: the current implementation of the
+docker File System abstraction <code>osxfs</code> used by Docker for Mac is slow
+and CPU intensive. Really badly slow. On one of our projects (with
+about 30k lines of code that need to listen to file changes), the
+compile time went from 2 seconds on our Vagrant setup with shared NFS
+volume to 1 minute (!) in docker.</p>
+
+<p>There is a performance bug reported on their bug tracker
+(<a href="">https://github.com/docker/for-mac/issues/77</a>), and apparently work
+is underway to improve this. Hopefully, we can return to Docker for
+Mac in a few month.</p>
+
+<p>Note that this is probably not an issue for everyone: perhaps
+performance on smaller projects or requiring less file system IO is
+acceptable. I would recommend trying that approach first.</p>
+
+<h3>Verdict: Docker for Mac</h3>
+
+<p>Pros:</p>
+
+<ul>
+<li><p>Works out of the box</p></li>
+<li><p>Minimal dependencies and setup</p></li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li>unusably slow file system for our case</li>
+</ul>
+
+
+<h2>Second attempt: Docker Machine through Dinghy</h2>
+
+<p>We were not about to give up so easily, especially since the previous
+attempt took us a total of 10 minutes (really looking forward to it
+being usable!).</p>
+
+<p>So the next attempt was to try to run a docker machine with a mounted
+NFS volume (we knew that performances of sharing a volume between a VM
+and the host to be good).</p>
+
+<p>After some research, we thought the best approach would be to use
+dinghy (<a href="">https://github.com/codekitchen/dinghy</a>).</p>
+
+<p>That was fairly easy to setup (a simple brew install away), although
+it is not as transparent as Docker for Mac and requires VirtualBox as
+an extra dependency.</p>
+
+<p>Well, turns out that works very well, and we managed to get things
+working in an afternoon on one of our ClojureScript project.</p>
+
+<p>But then, we tried to dockerize one of Rails projects, where we use
+private gems stored on Github. And in order to install the
+dependencies needed by the app, we had to get SSH agent forwarding
+working inside the container.</p>
+
+<p>Sad face: because of dinghy, this is actually quite hard because we
+need to first forward the SSH agent to the docker-machine VM, then
+mount the SSH agent socket from the VM to the container as a volume.</p>
+
+<p>So the way we solved that is to write a custom <code>dinghy-connect</code> helper
+that makes sure the docker-machine is running and that SSH forwarding
+from the host to the docker machine is setup, then exports an
+environment variable to the path of the SSH agent socket inside the
+VM.</p>
+
+<p>The end result can be seen in that gist:</p>
+
+<p><a href="">https://gist.github.com/Jell/546244f4fcb6b4596d3f66386e0d8102</a></p>
+
+<p>After using this setup for a week, it feels actually quite nice! And
+when compared to our previous setup with Vagrant, even including the
+needed SSH-forwarding "hack", it's on par for Mac usage.</p>
+
+<h3>Verdict</h3>
+
+<p>Pros:</p>
+
+<ul>
+<li>it works!</li>
+</ul>
+
+
+<p>Cons:</p>
+
+<ul>
+<li><p>More dependencies</p></li>
+<li><p>hack needed for SSH-forwarding</p></li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>Docker for Mac looks super promising. When the performance problems
+are fixed, it's going to be an excellent experience. For now, using
+docker-machine through dinghy with some manual patching is still quite
+good.</p>
+
+<p>I will personally be using Docker for my Dev environment for the
+foreseeable future.</p>
+]]></content>
+  </entry>
+  
+</feed>
