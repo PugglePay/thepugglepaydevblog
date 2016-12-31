@@ -1,0 +1,23 @@
+version: '2'
+services:
+  preview:
+    build: .
+    command: rake preview
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/app
+
+  bash:
+    stdin_open: true
+    tty: true
+    build: .
+    command: /bin/bash
+    volumes:
+      - ./:/app
+      # SSH Forwarding (1/2)
+      - $PROXY_SSH_AUTH_SOCK:/ssh-agent-sock
+    environment:
+      DB_HOST: db
+      # SSH Forwarding (2/2)
+      SSH_AUTH_SOCK: /ssh-agent-sock
