@@ -39,4 +39,11 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 
+# Install Heroku CLI
+RUN apt-get install -y apt-transport-https \
+    && add-apt-repository "deb https://cli-assets.heroku.com/branches/stable/apt ./" \
+    && curl -L https://cli-assets.heroku.com/apt/release.key | sudo apt-key add - \
+    && apt-get update \
+    && apt-get install -y heroku
+
 CMD ["/bin/bash"]
