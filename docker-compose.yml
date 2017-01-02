@@ -15,6 +15,7 @@ services:
     command: /bin/bash
     volumes:
       - ./:/app
+      - ~/.gitconfig:/root/.gitconfig
       # SSH Forwarding (1/2)
       - $PROXY_SSH_AUTH_SOCK:/ssh-agent-sock
     environment:
