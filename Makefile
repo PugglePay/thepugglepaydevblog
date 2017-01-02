@@ -3,7 +3,7 @@ deploy:
 	git pull origin master
 	git checkout deploy
 	git pull origin deploy
-	git merge master
+	git merge master --no-ff -m "Merge branch 'master' into deploy"
 	rake generate
 	git add -f ./public
 	git commit -m "regenerated website"
