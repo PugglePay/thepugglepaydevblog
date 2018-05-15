@@ -14,11 +14,22 @@ services:
     build: .
     command: /bin/bash
     volumes:
-      - ./:/app
-      - ~/.gitconfig:/root/.gitconfig
-      # SSH Forwarding (1/2)
-      - $PROXY_SSH_AUTH_SOCK:/ssh-agent-sock
+      - ./:/app:delegated
+      - ~/.gitconfig:/root/.gitconfig:ro
+
+    # SSH Forwarding (run ./setup.sh to add your key)
+    # Note: we can't use $SSH_AUTH_SOCK directly
+    # due to some limitations on mac.
+    # For solution, see:
+    #   https://github.com/nardeas/docker-ssh-agent
+    # For limitation description and tracking, follow:
+    #   https://github.com/docker/for-mac/issues/483
+    volumes_from:
+      - ssh-agent
     environment:
-      DB_HOST: db
-      # SSH Forwarding (2/2)
-      SSH_AUTH_SOCK: /ssh-agent-sock
+      SSH_AUTH_SOCK: /.ssh-agent/socket
+    depends_on:
+      - ssh-agent
+
+  ssh-agent:
+    image: nardeas/ssh-agent
